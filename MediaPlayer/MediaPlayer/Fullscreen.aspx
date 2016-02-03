@@ -18,7 +18,7 @@
     <link href="assets/css/styles.css" rel="stylesheet" id="styles" />
     <link href="assets/css/jquery-ui.css" rel="stylesheet" />
     <link href="assets/css/jquery-ui.structure.css" rel="stylesheet" />
-    <link href="assets/css/jquery-ui.theme.css" rel="stylesheet" />
+    <link href="assets/css/jquery-ui.theme.css" rel="stylesheet" /> 
 
     <script type="text/javascript">
 
