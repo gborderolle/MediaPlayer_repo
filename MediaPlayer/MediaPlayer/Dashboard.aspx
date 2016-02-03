@@ -31,6 +31,10 @@
     <script src="ExternalResources/Alert_Messages.js"></script>
 
     <!-- Styles -->
+
+    <link href="theme-2.css" type="text/css" rel="stylesheet"/> 
+
+
     <link href="assets/css/datetimepicker.css" type="text/css" rel="stylesheet"/>
     <link href="assets/css/jquery.photobox.css" type="text/css" rel="stylesheet"/> 
     <link href="assets/css/timeline-styles.css" rel="stylesheet" />
@@ -61,6 +65,7 @@
        /**** General global variables ****/
 
        var MAX_DOWNLOAD_FILES = 6;
+       var SVG_Height = 170;
        var addComment_active = false;
        var addFile_active = false;
        var elementType_active = "";
@@ -129,13 +134,7 @@
            if (pnlTagTypes != null && pnlTagTypes.length) {
                pnlTagTypes.css("margin-top", "-13px");
            }
-           var pnlTimeline1 = $("#pnlTimeline1");
-           if (pnlTimeline1 != null && pnlTimeline1.length) {
-               pnlTimeline1.css("overflow", "auto");
-               pnlTimeline1.css("height", "100%");
-               pnlTimeline1.css("max-height", "120px");
-               pnlTimeline1.css("min-height", "110px");
-           }
+           
            // Initial focus
            $("input[id*='_txbSearchBox1']").focus();
 
@@ -342,8 +341,7 @@
                                                        var new_timeline_data = jQuery.extend(true, {}, _TL_DATA); // It clones the object, does not references it
                                                        for (var i = 0; i < list_elements.length; i++) {
                                                            if (list_elements[i] != null) {
-                                                               var
-                                                                   attrs_array = list_elements[i].split("#"); // Element attributes
+                                                               var attrs_array = list_elements[i].split("#"); // Element attributes
                                                                if (attrs_array.length > 1) {
                                                                    var tapeID = attrs_array[0];
                                                                    if (tapeID != null && tapeID.length) {
@@ -438,10 +436,12 @@
                skin: "round"
            });
 
-           /**** Pointer settings ****/
+           /**** Progress Pointer settings ****/
            currentPointerPositionDate = _TL_STARTDATE;
            var pointer_timeline = $("#sm2-progress-ball_TIMELINE");
-           var first_tapeID = 0; // Get first element
+
+           // Si hay elementos cargados, muestra el puntero
+           var first_tapeID = 0; 
            if (elementsInMemory != null && elementsInMemory.length > 0) {
                first_tapeID = elementsInMemory[0].tapeID;
            }
@@ -617,16 +617,15 @@
        function handleDragging(event, ui) {
            var posX = ui.offset.left - $("#svg_timeframe").offset().left;
            var posY = ui.offset.top;
-           var posXfinal = posX + 13; // - 10
+           var posXfinal = posX + 80; // + 13
            var posYfinal = posY - 78;
-           if (posXfinal + parseInt($(".box4.popbox4").css("width"), 10) > $(window).width()) {
-               posXfinal = $(window).width() - parseInt($(".box4.popbox4").css("width"), 10);
+           var pop4_width = parseInt($(".box4.popbox4").css("width"), 10);
+           if (posXfinal + pop4_width > $(window).width()) {
+               posXfinal = $(window).width() - pop4_width;
            }
            $(".box4.popbox4").show("scale", 300);
            $(".box4.popbox4").offset({
-               left: posXfinal
-           });
-           $(".box4.popbox4").offset({
+               left: posXfinal,
                top: posYfinal
            });
            var date = window.timeframe_live.getTickDate(posX); // Datetime position - Formato: AÑO DIA MES
@@ -1258,7 +1257,7 @@
                }
                var svg = $("#timeframe > svg");
                if (svg != null && svg.length) {
-                   svg.attr("height", 170); // 170
+                   svg.attr("height", SVG_Height);
                }
                // Click over Events line
                EVENTS_LINE.on("click", events_line_click);
@@ -1753,9 +1752,11 @@
                        sm2_progress_bd.css('width', _width);
                        sm2_progress_track.css('height', 15);
 
-                       // Pointer left position
+                       // Pointer left and top position
                        pointer_timeline.offset({ left: vElement.offset().left });
-                       sm2_inline_element.offset({ top: timeline.offset().top + 15 }); // + 25
+                       //sm2_inline_element.offset({ top: timeline.offset().top + 15 }); // + 25
+
+                       sm2_inline_element.offset({ top: $("#divTimelineProgress").offset().top })
                    }
                } else {
                    // Set progress bar width
@@ -3820,7 +3821,7 @@
 
 /* ---------------------------------- */
 
-    .black_overlay {
+.black_overlay {
     display: none;
     position: absolute;
     top: 0;
@@ -3850,6 +3851,7 @@
 /* ---------------------------------- */
 #timeframe {
     background-color: #f5f5f5;
+    height: auto !important;
 }
 
 /* */
@@ -4583,20 +4585,31 @@ div.disabled,button.disabled,a.disabled {
             <!-- PANEL TIMELINE -->
             <div id="divTimeline" class="div-panel2 col-md-12 col-xs-12 img-rounded" style="height:100%; z-index:0;left: 0; border-radius: 13px;">
                <h1 style="margin-top: 5px;"><span class="special-title label label-primary" style="font-weight: normal;">Timeline</span></h1>
-               <div class="row text-center" style="z-index:0; height:170px; width: 100%;">
-        <div id="divTimelineProgress" style="height:15px; position:absolute; margin-top: 15px;"></div>
+               
+                
 
-                    <div class='popbox4' style="margin-top:15px; margin-right: 6px; display: none;"> </div> <!-- popbox: Runtime Timelapse -->
-                     <div class='box4 popbox4' style="width:150px; height: 40px; opacity: 0.9; background-color: lightgrey;">
-                        <div class='arrow-down' style="opacity: 0.9;"></div>
-                        <div class='arrow-border-down'></div>
-                        <div class="row row-short" style="padding: 10px;">
-                           <label id="lblPopbox4" class="label" style="font-size:100%; color:black;"></label> 
-                        </div>
-                     </div>
+                <div class="row" style="display:inline">
 
-                  <div id="timeframe" style="width:98%; height:90%; margin:auto; background:transparent;">
-                  </div>
+    <div id="playerContainer" class="col-md-2" style="height: 140px; width:55px; margin-top:10px;">
+		<div id="controlContainer">
+			<ul class="controls">
+				<li>
+					<a href="#" class="left" data-attr="prevAudio"></a>
+				</li>
+				<li>
+					<a href="#" class="play" data-attr="playPauseAudio"></a> <!-- pauseAudio -->
+				</li>
+				<li>
+					<a href="#" class="right" data-attr="nextAudio"></a>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+                <div id="divTimelineProgress" style="height:15px; position:absolute; margin-top: -5px;"></div> <!-- Contenedor draggable para el Progress Pointer -->
+
+
+                  <div id="timeframe" class="col-md-10" style="width:94%; margin:auto; background:transparent;"></div>
                   <div id="sm2-inline-element" class="sm2-inline-element sm2-inline-status" style="position:absolute;">
                      <div id="sm2-progress" class="sm2-progress">
                         <div class="sm2-row">
@@ -4608,7 +4621,9 @@ div.disabled,button.disabled,a.disabled {
                                     <div id="icon-overlay"class="icon-overlay icon-overlay2"></div>
                                     <img src="assets/images/pointer.png" style="width:20px; margin-top:-45px; margin-left:-5px;" />
 
-                                  <div id="vertical-line-progress" style="width: 1px; height: 130px; border-right: 2px solid black; position: absolute; margin-top: -10px; margin-left: 4px;"></div>
+                                     <div id="vertical-line-progress-left" style="width: 5px; height: 130px; border-right: 2px solid black; position: absolute; margin-top: -10px;/* margin-left: -4px; */border-bottom: 2px solid black;"></div>
+                                     <div id="vertical-line-progress-right" style="width: 5px; height: 130px;border-left: 2px solid black; position: absolute; margin-top: -10px;margin-left: 3px;border-bottom: 2px solid black;"></div>
+
                                  </div>
 
                               </div>
@@ -4616,7 +4631,20 @@ div.disabled,button.disabled,a.disabled {
                         </div>
                      </div>
                   </div>
-               </div>
+
+        </div>
+
+                <!-- popbox: Runtime Timelapse -->
+                <div class='popbox4' style="margin-top:15px; margin-right: 6px; display: none;"> </div> 
+                     <div class='box4 popbox4' style="width:150px; height: 40px; opacity: 0.9; background-color: lightgrey;">
+                        <div class='arrow-down' style="opacity: 0.9;"></div>
+                        <div class='arrow-border-down'></div>
+                        <div class="row row-short" style="padding: 10px;">
+                           <label id="lblPopbox4" class="label" style="font-size:100%; color:black;"></label> 
+                        </div>
+                     </div>
+
+
             </div>
          </div>
          <div class="row no-gutter" style="width: 100%;">

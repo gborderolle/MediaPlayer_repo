@@ -3,6 +3,9 @@
 <asp:content id="Content2" ContentPlaceHolderID="ContentHeader" runat="server">
 
     <script src="assets/js/jquery-1.12.0.js"></script>
+
+    <link href="theme-2.css" type="text/css" rel="stylesheet"/> 
+
    <script type="text/javascript"> </script>
 
   <style type="text/css">
@@ -29,6 +32,34 @@
         </asp:UpdatePanel>
         <br />
         </div>
+
+    <br />
+    <br />
+    <br />
+    <br />
+
+    <div id="playerContainer" style="height: 50px;">
+		<div id="controlContainer">
+			<ul class="controls">
+			<li>
+				<a href="#" class="shuffle" data-attr="shuffled"></a>
+			</li>
+				<li>
+					<a href="#" class="left" data-attr="prevAudio"></a>
+				</li>
+				<li>
+					<a href="#" class="play" data-attr="playPauseAudio"></a> <!-- pauseAudio -->
+				</li>
+				<li>
+					<a href="#" class="right" data-attr="nextAudio"></a>
+				</li>
+				<li>
+					<a href="#" class="repeat" data-attr="repeatSong"></a>
+				</li>
+			</ul>
+		</div>
+	</div>
+
 
     </form>
 </asp:content>
