@@ -4046,7 +4046,7 @@ hr.style-one:after {
 }
 
 .div-panel {
-    background: linear-gradient(to bottom,whitesmoke,#C9CBCE);
+    background: linear-gradient(to bottom, whitesmoke, whitesmoke);
 }
 
 .div-panel2 {
@@ -4098,7 +4098,7 @@ div.disabled,button.disabled,a.disabled {
          <div class="row no-gutter" style="height:100%; min-height:600px; max-height:600px;">
 
             <!-- PANEL BÚSQUEDA -->
-             <div id="divPanel_Busqueda" class="div-panel col-md-4 col-xs-12 img-rounded panel offset-2" style="max-height:600px; min-height:600px;">
+             <div id="divPanel_Busqueda" class="div-panel col-md-4 col-xs-12 img-rounded panel offset-2" style="max-height:600px; min-height:600px; border-radius: 13px;">
                <h1 style="margin-top: 5px;"><span class="special-title label label-primary" style="font-weight: normal; z-index: 50;">Búsqueda</span>
                </h1>
                <div class="row" style="margin:3px; margin-top: 25px; min-height: 110px;">
@@ -4195,7 +4195,7 @@ div.disabled,button.disabled,a.disabled {
                </div>
                <!-- /.row -->
               
-               <div id="divElementos" style="overflow:auto; max-height:437px; min-height:330px">
+               <div id="divElementos" style="overflow:auto; max-height:430px; min-height:330px">
                   <asp:UpdatePanel runat="server">
                      <ContentTemplate>
                         <asp:Literal ID="litTable" runat="server" Text=""></asp:Literal>
@@ -4230,7 +4230,7 @@ div.disabled,button.disabled,a.disabled {
             <div id="fade" class="black_overlay"></div>
             
              <!-- PANEL PLAYER -->
-            <div id="divPanel_PlayerControl" class="div-panel col-md-8 col-xs-12 img-rounded disabled" style="float:right; max-height:600px;min-height:600px;">
+            <div id="divPanel_PlayerControl" class="div-panel col-md-8 col-xs-12 img-rounded disabled" style="float:right; max-height:600px; min-height:600px; border-radius: 13px; width: 66%;">
                <h1 style="margin-top: 5px;"><span class="special-title label label-primary" style="font-weight: normal;">Reproductor</span></h1>
                <button id="btnShowHideLeftPanel" class="btn btn-primary btn-xs" type="button" title="Mostrar / Ocultar panel" style="color:white; float:left; display:none;" onclick="showHideLeftPanel();">
                <span class="glyphicon glyphicon-transfer" aria-hidden="true"></span>
@@ -4581,7 +4581,7 @@ div.disabled,button.disabled,a.disabled {
                      </div>
 
             <!-- PANEL TIMELINE -->
-            <div id="divTimeline" class="div-panel2 col-md-12 col-xs-12 img-rounded" style="height:100%; z-index:0;left: 0;">
+            <div id="divTimeline" class="div-panel2 col-md-12 col-xs-12 img-rounded" style="height:100%; z-index:0;left: 0; border-radius: 13px;">
                <h1 style="margin-top: 5px;"><span class="special-title label label-primary" style="font-weight: normal;">Timeline</span></h1>
                <div class="row text-center" style="z-index:0; height:170px; width: 100%;">
         <div id="divTimelineProgress" style="height:15px; position:absolute; margin-top: 15px;"></div>
