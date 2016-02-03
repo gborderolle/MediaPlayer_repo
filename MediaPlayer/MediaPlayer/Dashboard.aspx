@@ -119,7 +119,7 @@
            }
            hashMessages["InstallWebchimera_url"] = Webchimera_Install_URL;
 
-           runTableVisualEffect();
+           //runTableVisualEffect(true);
            getElementsInMemory();
            loadHiddenFields();
            initVariables();
@@ -647,8 +647,17 @@
 
        //#region JS Methods 1: runTableVisualEffect | openFullscreen | closeFullscreen | openUploadModal | addCommentClick | removeElement | closeModal 
 
-       function runTableVisualEffect() {
-           $("#tblLeftGridElements").show("blind", 1900);
+       // Change Roles and Types filter checkboxes to checked value 
+       function checkRolesAndTypesFilters() {
+           $("#divTypes input:not(:checked)").click()
+           $("#divRoles input:not(:checked)").click()
+       }
+
+       // Show visual effect on loading the left grid
+       function runTableVisualEffect(show) {
+           if (show) {
+               $("#tblLeftGridElements").show("blind", 1900);
+           }
        }
 
        function openFullscreen() {
@@ -925,6 +934,7 @@
 
        function prepareFilterTimelineElements(caller, filterType, filterValue) {
            if (caller != null && filterType != null && filterValue) {
+
                /* ************* Folio element results ************* */
                if (elementsInMemory != null) {
                    var checked = $(caller).prop('checked');
@@ -994,7 +1004,9 @@
                            }
                        } //for
                    }
+
                    /* ************* Re-load timeline logic ************* */
+
                    $("#timeframe").empty(); // Clean div content
                    var new_timeline_data = jQuery.extend(true, {}, _TL_DATA); // Clone the object, do not reference it
                    var new_object = {};
@@ -1002,6 +1014,7 @@
                    new_object.color = "#000000";
                    if (filterType === "role") {
                        if (checked) {
+
                            // Append role elements to original elements
                            var allTags = [];
                            allTags.push.apply(allTags, _TL_DATA.spans);
@@ -1009,6 +1022,7 @@
                            new_object.spans = allTags;
                            new_timeline_data = new_object;
                        } else {
+
                            // Grep: selecciona elementos que coincidan con la condición
                            if (new_timeline_data.spans != null &&
                                new_timeline_data.spans.length > 0) {
@@ -1020,6 +1034,7 @@
                        }
                    } else if (filterType === "type") {
                        if (checked) {
+
                            // Append type elements to original elements
                            var allTags = [];
                            allTags.push.apply(allTags, _TL_DATA.spans);
@@ -1057,11 +1072,13 @@
            $(caller).addClass("active");
            var type = $(caller).attr("id");
            if (type != null) {
+
                //$("#divFolios").hide();
                $("#divRoles").hide();
                $("#divTypes").hide();
 
                if (type === "liFolio") {
+
                    //$("#divFolios").show();
                    $("#divElementos").css("max-height", "437px");
                } else if (type === "liRoles") {
@@ -1140,6 +1157,7 @@
            var xPosition = 0;
            var yPosition = 0;
            while (element) {
+
                // NOTE: Chrome way
                //xPosition += (element.offsetLeft - element.scrollLeft + element.clientLeft);
                //yPosition += (element.offsetTop - element.scrollTop + element.clientTop);
@@ -1202,6 +1220,7 @@
                var rectTitle_values = {};
                var MAIN_LINE_height = 105; // 90
                var MAIN_LINE_top = 78; // 60
+
                rectColor_values = {
                    grabacion: "blue",
                    video: "purple",
@@ -1210,6 +1229,7 @@
                    comentario: "orange",
                    imagen: "Violet"
                }
+
                rectTitle_values = {
                    grabacion: "Grabación",
                    video: "Video",
@@ -1242,9 +1262,12 @@
                }
                // Click over Events line
                EVENTS_LINE.on("click", events_line_click);
+
                /* ************* Style settings ************* */
+
                if (elementsInMemory.length > 0) {
-                   // Loop into elements
+
+                   // Loop into elements in memory
                    for (var i = 0; i < elementsInMemory.length; i++) {
                        var element = elementsInMemory[i];
                        if (element != null) {
@@ -1261,8 +1284,8 @@
                            var fileStatus = element.fileStatus;
                            var duration_formatStr = element.duration_formatStr;
 
-
                            /* ************* Objects: timeline features and styles by element types ************* */
+
                            // IsExtra = If filePath is NOT empty, then is extra from incextras table
                            var isExtra = filePath.length == 0 ? false : true;
                            var color_str = rectColor_values.grabacion;
@@ -1270,10 +1293,9 @@
                            var line_opacity = 0.7;
                            var x_extra = 5;
                            var ELEMENT = $("#timeframe #tlTape_" + tapeID);
-                           var ELEMENT_rect = $("#timeframe #tlTape_" + tapeID +
-                               " > rect");
-                           var ELEMENT_text = $("#timeframe #tlTape_" + tapeID +
-                               " > text");
+                           var ELEMENT_rect = $("#timeframe #tlTape_" + tapeID + " > rect");
+                           var ELEMENT_text = $("#timeframe #tlTape_" + tapeID + " > text");
+
                            // Border not rounded
                            if (ELEMENT_rect != null && ELEMENT_rect.length) {
                                ELEMENT_rect.attr("rx", 0);
@@ -1285,8 +1307,8 @@
                                    {
                                        tapeType_longStr = rectTitle_values.grabacion;
                                        color_str = rectColor_values.grabacion;
-                                       toolTip_title = "Elemento #" + count +
-                                       " (Grabación de pantalla)";
+                                       toolTip_title = "Elemento #" + count + " (Grabación de pantalla)";
+
                                        // Border rounded
                                        if (ELEMENT_rect != null && ELEMENT_rect
                                            .length) {
@@ -1298,9 +1320,9 @@
                                case "V":
                                    {
                                        tapeType_longStr = rectTitle_values.video;
-                                       toolTip_title = "Elemento #" + count +
-                                       " (" + tapeType_longStr + ")";
+                                       toolTip_title = "Elemento #" + count + " (" + tapeType_longStr + ")";
                                        color_str = rectColor_values.video;
+
                                        // Border rounded
                                        if (ELEMENT_rect != null && ELEMENT_rect
                                            .length) {
@@ -1312,9 +1334,9 @@
                                case "A":
                                    {
                                        tapeType_longStr = rectTitle_values.audio;
-                                       toolTip_title = "Elemento #" + count +
-                                       " (" + tapeType_longStr + ")";
+                                       toolTip_title = "Elemento #" + count + " (" + tapeType_longStr + ")";
                                        color_str = rectColor_values.audio;
+
                                        // Border rounded
                                        if (ELEMENT_rect != null && ELEMENT_rect
                                            .length) {
@@ -1326,8 +1348,7 @@
                                case "D":
                                    {
                                        tapeType_longStr = rectTitle_values.documento;
-                                       toolTip_title = "Elemento #" + count +
-                                       " (" + tapeType_longStr + ")";
+                                       toolTip_title = "Elemento #" + count + " (" + tapeType_longStr + ")";
                                        color_str = rectColor_values.documento;
                                        line_opacity = 1;
                                        break;
@@ -1336,6 +1357,7 @@
                                    {
                                        tapeType_longStr = rectTitle_values.comentario;
                                        color_str = rectColor_values.comentario;
+
                                        // Special styles
                                        ELEMENT_rect.attr("y", Math.floor(ELEMENT_rect.attr("y")) + MAIN_LINE_top - 85);
                                        ELEMENT_rect.attr("height", MAIN_LINE_height - 5);
@@ -1347,8 +1369,7 @@
                                case "I":
                                    {
                                        tapeType_longStr = rectTitle_values.imagen;
-                                       toolTip_title = "Elemento #" + count +
-                                       " (" + tapeType_longStr + ")";
+                                       toolTip_title = "Elemento #" + count + " (" + tapeType_longStr + ")";
                                        color_str = rectColor_values.imagen;
                                        line_opacity = 1;
                                        break;
@@ -1377,20 +1398,25 @@
                                    ELEMENT.attr("title", toolTip_title);
                                }
                            }
-                           if (ELEMENT != null && ELEMENT.length &&
-                               ELEMENT_rect != null && ELEMENT_rect.length) {
+                           if (ELEMENT != null && ELEMENT.length && ELEMENT_rect != null && ELEMENT_rect.length) {
+
                                // Set element type to element
                                ELEMENT.attr("type_name", tapeType);
+
                                // Set default cursor
                                ELEMENT.css('cursor', 'default');
+
                                // Hide Element letters
                                ELEMENT_text.css('display', 'none');
+
                                // Elements no comments - comment exception
                                if (tapeType != "C") {
+
                                    // Set cursor
                                    ELEMENT_rect.css('cursor', 'pointer');
                                    ELEMENT.css('z-index', 10);
                                    ELEMENT_rect.css('z-index', 10);
+
                                    // Element click bottom
                                    // Carga los parámetros con el valor actual de sus parámetros para que se envíen dinámicamente con el evento click
                                    ELEMENT_rect.on("click", {
@@ -1444,7 +1470,7 @@
                                }
                            }
                        }
-                   } //for
+                   } // for
                }
                // Get first element
                var first_tapeID = 0;
@@ -1456,13 +1482,14 @@
                if (ELEMENT_first_rect != null && ELEMENT_first_rect.length) {
                    ELEMENT_first_rect.attr("fill-opacity", 0.8);
                }
+
                // Visual effect
                $("#timeframe").show("blind", 50);
                locateEveryElementByType();
            }
        }
-       // Send element details
 
+       // Send element details
        function fire_event(event) {
            $("button[name='btnTimelineElement']").removeClass("active");
            clickTimelineElement1(event.data._tapeID, event.data._count, event.data._duration, event.data._timestamp, event.data._tapeType_longStr,
@@ -1483,6 +1510,7 @@
            })
            var basic_height = 0;
            var extra_top = 30;
+
            // Element distinct types 
            switch (objects.length) {
                case 1:
@@ -1522,6 +1550,7 @@
                        break;
                    }
            }
+
            // Type letter location
            var border_start = $("line[name='timeframe_start']");
            var x_extra = parseInt(border_start.attr('x1'), 10) - 12;
@@ -1610,11 +1639,14 @@
        }
 
        function paintSelectionClick(tapeID, timestamp) {
+
            /******** Clear other element styles ********/
+
            // Left panel
            $("button[name='btnTimelineElement']").removeClass("active");
            $("tr[id*='tape_'] > td > h5").attr("style", "color:black;");
            $("tr[id*='tape_']").css("background-color", "white");
+
            // Bottom
            var vAllBottom_texts = $("g[id*='tlTape_'] > text");
            var vAllBottom_rects = $("g[id*='tlTape_'] > rect");
@@ -1626,10 +1658,12 @@
                vAllBottom_rects.attr("stroke-opacity", 0);
            }
            /******** Set new styles ********/
+
            // Left panel
            $("#tape_" + tapeID + " > td > h5").attr("style",
                "color:DodgerBlue ;");
            $("#tape_" + tapeID).css("background-color", "lightgray");
+
            // Bottom
            var vBottom_text = $("#timeframe #tlTape_" + tapeID + " > text");
            var vBottom_rect = $("#timeframe #tlTape_" + tapeID + " > rect");
@@ -1640,13 +1674,13 @@
                vBottom_rect.attr("stroke-width", 4);
                vBottom_rect.attr("stroke-opacity", 0.9);
            }
+
            // Set Selected element
            selectedElementID = tapeID;
            setImgPointerLocation(tapeID);
 
            // Set current pointer date, to the add-comment & upload-file functions
-           //currentPointerPositionDate = moment(timestamp, "dd-MM-yyyy HH:mm:ss"); // Usar GetTickDate de timeframe.js?
-           currentPointerPositionDate = timestamp; // Usar GetTickDate de timeframe.js?
+           currentPointerPositionDate = timestamp; 
        }
 
        function getOffset(evt) {
@@ -1685,7 +1719,9 @@
            }
        }
        //#endregion 
+
        //#region JS Methods 4: setImgPointerLocation | getObjects | loadElementPlayer 
+
        /******** Set location of Pointer over the timeline element initial position ********/
 
        function setImgPointerLocation(tapeID) {
@@ -4079,7 +4115,7 @@ div.disabled,button.disabled,a.disabled {
                      <div class="col-md-12" style="margin-bottom: -20px;">
                         <div style="z-index:0; display: inline;">
                         <div>
-                            <asp:Timer ID="Timer1" OnTick="Timer1_Tick" runat="server" Interval="300000"> <!-- Refresh grid every 5 mins -->
+                            <asp:Timer ID="Timer1" OnTick="Timer1_Tick" runat="server" Interval="300000"> <!-- Default: Refresh grid every 5 mins -->
                             </asp:Timer> 
                         </div>
 

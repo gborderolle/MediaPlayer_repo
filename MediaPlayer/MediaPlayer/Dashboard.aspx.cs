@@ -670,7 +670,7 @@ namespace MediaPlayer
 
             /****** Table headers ******/
 
-            htmlTable.AppendLine("<table class='table' id='tblLeftGridElements' style='display:none;'>");
+            htmlTable.AppendLine("<table class='table' id='tblLeftGridElements'>"); // style='display:none;'
             htmlTable.AppendLine("<thead>");
             htmlTable.AppendLine("<tr style='background: transparent'>");
             htmlTable.AppendLine("<th width='3%' style='text-align: center;'><input type='checkbox' id='chbSelectAll' name='timeline_elements_checkAll' class='button' checked></th>");
@@ -856,6 +856,7 @@ namespace MediaPlayer
                     _hdnJSonStart.Value = val2;
                     _hdnJSonEnd.Value = val3;
 
+                    // Fire the timeframe drawing
                     ScriptManager.RegisterStartupScript(this, typeof(Page), "pre_timeframe_prepare", "pre_timeframe_prepare();", true);
                 }
                 else
@@ -877,7 +878,11 @@ namespace MediaPlayer
             LoadRoles();
             LoadTypes();
 
-            ScriptManager.RegisterStartupScript(this, typeof(Page), "grid_visualEffect", "runTableVisualEffect();", true);
+            // Change Roles and Types filter checkboxes to checked status
+            ScriptManager.RegisterStartupScript(this, typeof(Page), "checkRolesAndTypesFilters", "checkRolesAndTypesFilters();", true);
+
+            // Show visual effect on loading the left grid
+            // ScriptManager.RegisterStartupScript(this, typeof(Page), "grid_visualEffect", "runTableVisualEffect();", true);
         }
 
         private string FolioElements_GetOnClickEvent(Folio folio, int index, bool isExtra, string duration_formatStr, string media_str = "")
@@ -1123,202 +1128,6 @@ namespace MediaPlayer
                 }
             }
             return result;
-        }
-
-        [System.Web.Services.WebMethod]
-        public static void RefreshAjax(string folioID)
-        {
-            int index = 0;
-            StringBuilder htmlTable = new StringBuilder();
-
-            /****** Table headers ******/
-            htmlTable.AppendLine("<table class='table' id='tblLeftGridElements' style='display:none;'>");
-            htmlTable.AppendLine("<thead>");
-            htmlTable.AppendLine("<tr style='background: transparent'>");
-            htmlTable.AppendLine("<th width='3%' style='text-align: center;'><input type='checkbox' id='chbSelectAll' name='timeline_elements_checkAll' class='button' checked></th>");
-            htmlTable.AppendLine("<th width='3%' style='text-align: center;'>#</th>");
-            htmlTable.AppendLine("<th width='5%' style='text-align: center;'>Usuario</th>");
-            htmlTable.AppendLine("<th width='8%' style='text-align: center;'>Local Party</th>");
-            htmlTable.AppendLine("<th width='5%' style='text-align: center;'>Remote Party</th>");
-            htmlTable.AppendLine("<th width='5%' style='text-align: center;'>Tipo</th>");
-            htmlTable.AppendLine("<th width='6%' style='text-align: center;'>Inicio</th>");
-            htmlTable.AppendLine("<th width='3%' style='text-align: center;'>Duración</th>");
-            htmlTable.AppendLine("</tr>");
-            htmlTable.AppendLine("</thead>");
-
-            List<Folio> folio_list = Global.GlobalMethods.GetAllFolios(folioID);
-            //ViewState["folio_list"] = folio_list;
-
-            if (folio_list != null && folio_list.Count > 0)
-            {
-                List<Folio> folio_filteredList = folio_list.FindAll(x => x.deleted == 0);
-                //ViewState["folio_filteredList"] = folio_filteredList;
-
-                string hdnTapeID_RoleGroupName_TypeTapeType_duration_timestamp_segmentID_count_fileName_endDate_filePath_duration_formatStr_fileStatus = string.Empty;
-                string hdnElementsIDChecked = string.Empty;
-
-                //
-                RootObject json_elementList = new RootObject();
-                json_elementList.name = "Elements";
-                json_elementList.color = "#000000";
-
-                DateTime folio_start = DateTime.MaxValue;
-                DateTime folio_end = DateTime.MinValue;
-                //
-
-                List<Folio> list = folio_filteredList.Where(x => x.deleted == 0).ToList();
-                if (list != null && list.Count > 0)
-                {
-                    //ViewState["FolioID"] = list[0].folio_textID;
-
-                    foreach (Folio folio in list)
-                    {
-                        index++;
-
-                        string end_date = folio.timestamp.AddSeconds(folio.duration).ToString("dd'-'MM'-'yyyy HH':'mm':'ss");
-
-                        // Duration
-                        TimeSpan time = TimeSpan.FromSeconds(folio.duration);
-                        string duration_formatStr = time.ToString(@"hh\:mm\:ss");
-
-                        /****** Hidden fields ******/
-                        hdnTapeID_RoleGroupName_TypeTapeType_duration_timestamp_segmentID_count_fileName_endDate_filePath_duration_formatStr_fileStatus
-                            += folio.tapeID + "#" + folio.groupName + "#" + folio.mediaType.ToString() + "#" + folio.duration + "#" + folio.timestamp.ToString("dd'-'MM'-'yyyy HH':'mm':'ss")
-                            + "#" + folio.segmentID + "#" + index + "#" + folio.fileName + "#" + end_date + "#" + folio.filePath + "#" + duration_formatStr + "#" + folio.fileStatus + "$";
-
-                        // Get max and min value
-                        folio_start = folio_start > folio.timestamp ? folio.timestamp : folio_start;
-                        folio_end = folio_end < folio.timestamp.AddSeconds(folio.duration) ? folio.timestamp.AddSeconds(folio.duration) : folio_end;
-
-                        /****** Create json data ******/
-                        Span json_element = new Span();
-                        json_element.name = folio.mediaType == "S" ? "P" : folio.mediaType;
-                        json_element.start = folio.timestamp.ToString("dd'-'MM'-'yyyy HH':'mm':'ss");
-                        json_element.end = end_date;
-                        json_element.id = folio.tapeID.ToString();
-                        json_element.type = folio.mediaType;
-                        json_element.role = folio.groupName;
-
-                        json_elementList.spans.Add(json_element);
-
-                        // isExtra, type, icon and color
-                        //bool isExtra = false; // If its taken from orkextra table
-                        string icon = "glyphicon glyphicon-headphones";
-                        string media_str = "Grabación";
-                        string color_str = "";
-                        switch (folio.mediaType)
-                        {
-                            case "S":
-                                {
-                                    icon = "glyphicon glyphicon-play";
-                                    media_str = "Grabación";
-                                    color_str = "blue";
-                                    break;
-                                }
-                            case "V":
-                                {
-                                    icon = "glyphicon glyphicon-film";
-                                    media_str = "Video";
-                                    color_str = "purple";
-                                    break;
-                                }
-                            case "A":
-                                {
-                                    icon = "glyphicon glyphicon-headphones";
-                                    media_str = "Audio";
-                                    color_str = "red";
-                                    break;
-                                }
-                            case "D":
-                                {
-                                    icon = "fa fa-file-text";
-                                    media_str = "Documento";
-                                    color_str = "green";
-                                    break;
-                                }
-                            case "C":
-                                {
-                                    icon = "glyphicon glyphicon-comment";
-                                    media_str = "Comentario";
-                                    color_str = "orange";
-                                    break;
-                                }
-                            case "I":
-                                {
-                                    icon = "glyphicon glyphicon-picture";
-                                    media_str = "Imagen";
-                                    color_str = "Violet";
-                                    break;
-                                }
-                        }
-
-                        // IsExtra = If filePath is NOT empty, then is extra from incextras table
-                        bool isExtra = folio.filePath == string.Empty ? false : true;
-                        if (folio.mediaType == "C")
-                        {
-                            isExtra = true;
-                        }
-
-                        string color_icon = isExtra ? "#C4FFD6" : "beige";
-
-                        // Onclick event
-                        string onclick_event = "";// FolioElements_GetOnClickEvent(folio, index, isExtra, duration_formatStr, media_str);
-
-                        // Title
-                        string title = folio.mediaType == "S" ? "Grabación de Pantalla" : media_str;
-
-                        /****** Table data ******/
-                        htmlTable.AppendLine("<tr id='tape_" + folio.tapeID + "'>");
-                        htmlTable.AppendLine("<td>");
-
-                        htmlTable.AppendLine("<input type='checkbox' name='timeline_elements' class='button' value='" + folio.tapeID + "#" + isExtra.ToString().ToLowerInvariant() + "#" + folio.mediaType + "' onclick='manageElement(this, " + folio.tapeID + ", " + (index - 1).ToString() + ", " + JsonConvert.SerializeObject(json_element) + ")' checked>");
-                        htmlTable.AppendLine("<td>");
-                        htmlTable.AppendLine("<h5>" + index + "</h5>");
-                        htmlTable.AppendLine("<td>");
-                        htmlTable.AppendLine("<h5>" + folio.userName + "</h5>");
-                        htmlTable.AppendLine("<td>");
-                        htmlTable.AppendLine("<h5>" + folio.localParty + "</h5>");
-                        htmlTable.AppendLine("<td>");
-                        htmlTable.AppendLine("<h5>" + folio.remoteParty + "</h5>");
-                        htmlTable.AppendLine("<td>");
-
-                        htmlTable.AppendLine("<button type='button' class='btn btn-default btn-sm' style='color:" + color_str + "; opacity: 0.9; background-color: " + color_icon + "; background-image: none;' name='btnTimelineElement' data-toggle='tooltip' ");
-                        htmlTable.AppendLine("title=" + title + " onclick='" + onclick_event + "'><span class='" + icon + "' aria-hidden='true'></span></button>");
-                        htmlTable.AppendLine("<td>");
-                        htmlTable.AppendLine("<h5 id='timestamp'>" + folio.timestamp.ToString("dd'-'MM'-'yyyy HH':'mm':'ss") + "</h5>");
-                        htmlTable.AppendLine("<td>");
-
-                        htmlTable.AppendLine("<h5>" + duration_formatStr + "</h5>");
-                        htmlTable.AppendLine("</tr>");
-                    }
-                }
-
-                if (hdnTapeID_RoleGroupName_TypeTapeType_duration_timestamp_segmentID_count_fileName_endDate_filePath_duration_formatStr_fileStatus.Length > 0)
-                {
-                    hdnTapeID_RoleGroupName_TypeTapeType_duration_timestamp_segmentID_count_fileName_endDate_filePath_duration_formatStr_fileStatus = hdnTapeID_RoleGroupName_TypeTapeType_duration_timestamp_segmentID_count_fileName_endDate_filePath_duration_formatStr_fileStatus.Remove(hdnTapeID_RoleGroupName_TypeTapeType_duration_timestamp_segmentID_count_fileName_endDate_filePath_duration_formatStr_fileStatus.Length - 1);
-                    //_hdnTapeID_RoleGroupName_TypeTapeType_duration_timestamp_segmentID_count_fileName_endDate_filePath_duration_formatStr_fileStatus.Value = hdnTapeID_RoleGroupName_TypeTapeType_duration_timestamp_segmentID_count_fileName_endDate_filePath_duration_formatStr_fileStatus;
-                }
-
-                /****** Load bottom Timeline ******/
-
-                //_hdnJSonList.Value = JsonConvert.SerializeObject(json_elementList);
-                //_hdnJSonStart.Value = folio_start.ToString("dd'-'MM'-'yyyy HH':'mm':'ss");
-                //_hdnJSonEnd.Value = folio_end.ToString("dd'-'MM'-'yyyy HH':'mm':'ss");
-
-                //ScriptManager.RegisterStartupScript(this, typeof(Page), "pre_timeframe_prepare", "pre_timeframe_prepare();", true);
-            }
-            else
-            {
-                // Folio does not exist
-                //ViewState["FolioID"] = 0;
-                //_hdnTapeID_RoleGroupName_TypeTapeType_duration_timestamp_segmentID_count_fileName_endDate_filePath_duration_formatStr_fileStatus.Value = string.Empty;
-            }
-
-            htmlTable.AppendLine("</tbody>");
-            htmlTable.AppendLine("</table>");
-
-            //litTable.Text = htmlTable.ToString();
-            //lblResultsCount.Text = index.ToString();
         }
 
         #endregion Web Methods
