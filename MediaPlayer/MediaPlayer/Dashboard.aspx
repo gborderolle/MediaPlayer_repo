@@ -4607,7 +4607,10 @@ div.disabled,button.disabled,a.disabled {
                                  <div id="sm2-progress-ball_TIMELINE"  class="sm2-progress-ball sm2-progress-ball2" style="display:none;">
                                     <div id="icon-overlay"class="icon-overlay icon-overlay2"></div>
                                     <img src="assets/images/pointer.png" style="width:20px; margin-top:-45px; margin-left:-5px;" />
+
+                                  <div id="vertical-line-progress" style="width: 1px; height: 130px; border-right: 2px solid black; position: absolute; margin-top: -10px; margin-left: 4px;"></div>
                                  </div>
+
                               </div>
                            </div>
                         </div>
