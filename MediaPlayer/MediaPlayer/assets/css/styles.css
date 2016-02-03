@@ -1,0 +1,450 @@
+﻿@charset "utf-8";
+/* CSS Document  --------------------------------------------------------------------------------------------*/
+a, abbr, acronym, address, applet, article, aside, audio,
+b, blockquote, big, body,
+center, canvas, caption, cite, code, command,
+datalist, dd, del, details, dfn, dl, div, dt, 
+em, embed,
+fieldset, figcaption, figure, font, footer, form, 
+h1, h2, h3, h4, h5, h6, header, hgroup, html,
+i, iframe, img, ins,
+kbd, 
+keygen,
+label, legend, li, 
+meter,
+nav,
+object, ol, output,
+p, pre, progress,
+q, 
+s, samp, section, small, span, source, strike, strong, sub, sup,
+table, tbody, tfoot, thead, th, tr, tdvideo, tt,
+u, ul, 
+var{
+	background: transparent;
+	border: 0 none;
+	font-size: 100%;
+	margin: 0;
+	padding: 0;
+	vertical-align:baseline;
+}
+img { vertical-align:middle; }
+
+/* Getting the new tags to behave  --------------------------------------------------------------------------------------------*/
+article, aside, audio, canvas, command, datalist, details, embed, figcaption, figure, footer, header, hgroup, keygen, meter, nav, output, progress, section, source, video{ display: block; }
+mark, rp, rt, ruby, summary, time{ display: inline }
+a{ color:#1792e7; text-decoration:none; }
+li { list-style-type:none; }
+:focus { outline:none; }
+.clear { clear:both; }
+.highlight { color:#2390db; }
+.show { display:block!important; }
+input:-webkit-autofill { background-color: #fff!important; color: #a3a3a3; }
+/* Fonts Face Define  --------------------------------------------------------------------------------------------*/
+/* Trade Gothic Bold  --------------------------------------------------------------------------------------------*/
+
+
+
+@font-face {
+	font-family: 'FontAwesome';
+	src: 	url('../fonts/fontawesome-webfont.eot');
+	src: 	url('../fonts/fontawesome-webfont.eot?#iefix') format('embedded-opentype'),
+	url('../fonts/fontawesome-webfont.woff') format('woff'),
+	url('../fonts/fontawesome-webfont.ttf') format('truetype'),
+	url('../fonts/fontawesome-webfont.svg#droid_sansbold') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+/* Droid Sans Regular  --------------------------------------------------------------------------------------------*/
+@font-face {
+	font-family: 'DroidSansRegular';
+	src: 	url('../fonts/DroidSans-webfont.eot');
+	src: 	url('../fonts/DroidSans-webfont.eot?#iefix') format('embedded-opentype'),
+	url('../fonts/DroidSans-webfont.woff') format('woff'),
+	url('../fonts/DroidSans-webfont.ttf') format('truetype'),
+	url('../fonts/DroidSans-webfont.svg#droid_sansregular') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+html, body {
+	width:100%;
+	height:100%;
+}
+body {
+	font:12px/1.4em FontAwesome, Helvetica, Arial, sans-serif;
+	background:#444;
+	color:#6a6a6a;
+	text-align:center;
+	font-weight:normal!important;
+}
+
+/* Font Trade Gothic Bold  --------------------------------------------------------------------------------------------*/
+h2, h3, h4, .btn {
+	font-family: "DroidSansRegular", Helvetica, Arial, sans-serif;
+	font-weight:normal!important;
+	letter-spacing:-1px;
+	color:rgb(96,191,234);
+	text-transform:uppercase;
+}
+
+/* Font Droid Sans Bold  --------------------------------------------------------------------------------------------*/
+strong, .highlight, footer .content .lf .bd .promo .title {
+	font-family: FontAwesome, Helvetica, Arial, sans-serif;
+	font-weight:normal!important;
+}
+
+#main .content {
+	float:left;
+	width:600px;
+}
+
+#wrap-container {
+	text-align:left;
+	padding-top:50px;
+	border-top:7px solid #444;
+}
+#container {
+	overflow:hidden;
+	margin:0 auto;
+	padding-bottom:50px;
+
+	position: relative;
+	margin-bottom: 7% auto;
+	padding: 13px;
+	color: #fff;
+	border-radius: 10px;
+	margin-bottom: 20px;
+}
+
+.imgPIA{
+	width: 100%;
+	height: 100%;
+}
+
+h2{
+	font-size:50px;
+	text-align:right;
+	margin-top:30px;
+	color:rgb(96,191,234);
+
+	text-shadow: -1px -1px 1px #fff, 1px 1px 1px #000;
+	color: 9c8468;
+	opacity: 0.8;
+}
+
+.lf {
+	width:55% !important;
+}
+
+#container .lf {
+	float:left;
+	width:547px;
+	padding-left:15px;
+}
+
+.rg {
+	width:40% !important;
+}
+
+#container .rg {
+	float:left;
+	width:398px;
+	padding-top:10px;
+}
+#container .rg .uy-logo {
+	margin-bottom:30px;
+}
+h1#logo {
+	padding-bottom:40px;
+}
+h1#logo span {
+	display: block;
+	width: 318px;
+	height: 96px;
+	background-image: url('../images/1.png');
+	background-repeat:no-repeat;
+	background-position: 0 0;
+	text-indent: -5000px;
+}
+#container .rg h2 {	
+	padding-bottom:30px;
+}
+#container .content p {
+	font-size:14px;
+	line-height:1.2es;
+	margin-bottom:1.5em;
+}
+
+/* Footer  ---------------------------------------------------------------------------------------------*/
+footer .wrap-content {
+	border-top:17px solid #575757;
+	background:#444;
+}
+footer .content {
+	font-size:9px;
+	color:#888;
+	width:960px;
+	overflow:hidden;
+	margin:0 auto;
+	padding:10px 0 12px;
+	width: 70%;
+}
+footer .content a {
+	color:#f6f6f6;
+
+	float:right;
+}
+footer .content .lf .bd {
+	padding-bottom:5px;
+	min-height: 58px;
+}
+footer .content .lf .bd .logo {
+	margin-right:31px;
+}
+footer .content .lf .bd .logo,
+footer .content .lf .bd .regulated {
+	float:left;
+}
+footer .content .lf .bd .regulated .title {
+	padding-bottom:11px;
+	line-height:1em;
+}
+footer .content .lf .bd .regulated .norton,
+footer .content .lf .bd .regulated .truste {
+	float:left;
+}
+footer .content .lf .bd .regulated .norton *  {
+	width:53px;
+	height:38px;
+	position:relative;
+	top:-2px;
+}
+footer .content .lf .bd .regulated .norton table,
+footer .content .lf .bd .regulated .norton table td {
+	width:53px;
+	padding:0;
+}
+footer .content .lf .bd .regulated .norton {
+	margin-right:9px;
+}
+footer .content .lf .bd .regulated .truste {
+	padding-top:2px;
+}
+footer .content .lf .bd .promo {
+	float:right;
+	width:270px;
+	color:#17d690;
+}
+footer .highlight {
+	color:#17D690;
+}
+footer .content .lf .bd .promo .title {
+	line-height:1em;
+	padding-bottom:5px;
+	text-transform:uppercase;
+	font-size:10px;
+}
+
+p{
+	text-align: right;
+}
+
+footer .content .lf .bd .promo p {
+	line-height:1.1em;
+}
+footer .content .lf .bd .promo p.highlight {
+	font-size:12px;
+	margin-bottom:6px;
+}
+footer .content .lf .bd .promo .descrip {
+	float:left;
+	font-size:11px;
+	width:160px;
+}
+footer .content .lf .bd .promo .btn {
+	float:right;
+	text-transform:uppercase;
+	background:#676767;
+	font-size:14px;
+	padding: 3px 10px;
+	letter-spacing:0;
+	margin-top:3px;
+}
+footer .content .lf nav {
+	white-space:nowrap;
+}
+footer .content .lf nav a {
+	font-size:9px;
+	text-transform:uppercase;
+	margin-right:20px;
+}
+footer .content .lf {
+	float:left;
+	width:615px;
+	padding-top:13px;
+}
+footer .content .rg {
+	float:right;
+	width:300px;
+}
+footer .content .rg .bd {
+	line-height:1.3em;
+	height:44px;
+}
+footer .content .rg .ft .wtc-logo {
+	float:left;
+}
+footer .content .rg .ft .wtc-logo img {
+	position:relative;
+	top:3px;
+}
+footer .content .rg .ft .socials {
+	float:right;
+}
+footer .content .rg .ft .socials li {
+	float:left;
+}
+footer .content .rg .ft .socials a {
+	margin-left:4px;
+}
+footer .wrap-logos {
+	background:#fff;
+	text-align:center;
+}
+footer .wrap-disclaimer {
+	background:#e3e3e3;
+	padding:15px 0 30px;
+}
+footer .disclaimer {
+	width:960px;
+	margin:0 auto;
+}
+footer .disclaimer .certifiedLogos {
+	float:right;
+	margin-left:20px;
+	position:relative;
+	top:-9px;
+}
+footer .disclaimer p {
+	padding:8px 0;
+	font-size:9px;
+	line-height:1.5em;
+}
+footer .disclaimer p.last {
+	min-height:88px;
+	padding-bottom:0;
+}
+
+/* *-----------------------* */
+
+#equipo {
+	max-width: 20%;
+	display:inline-block;
+	margin: 35px;
+}
+
+.web-constr {
+	float:right; 
+	margin-top: 15px;
+	color: skyblue;
+}
+
+ul li p {
+	text-align: center;
+}
+
+.thumbnail{
+    overflow: auto;
+}
+
+.center-col{
+	width: 50% !important;
+	margin: 0 auto;
+	cursor: pointer;
+}
+
+@media all and (max-width: 480px){
+	.rg h1, .rg h2{
+		padding-top: 15px;
+		font-size:25px;
+	}	
+}
+
+
+/* FOOTER CONTAINER */
+
+	.skinLight #inboxMainContainerTop {
+		background-color:#f8f8f8
+		}
+
+
+#inboxMainFooter {
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#373737), to(#1c1c1c)) !important;
+	/*position:absolute !important;
+	bottom:0px !important;
+	left:0px;
+	right:0px;*/
+	height:40px;
+	padding-left:9px;
+	padding-right:9px;
+	/* min-width:1270px */
+	}
+
+	.skinLight #inboxMainFooter {
+		background-color:#373737;
+		background-image:
+		
+		-webkit-gradient(linear, left top, left bottom, from(#373737), to(#1c1c1c));
+		background-image:
+		
+		-webkit-linear-gradient(top, #373737, #1c1c1c);
+		background-image:
+		
+		-moz-linear-gradient(top, #373737, #1c1c1c);
+		background-image:
+		
+		-o-linear-gradient(top, #373737, #1c1c1c);
+		background-image:linear-gradient(to bottom,#373737, #1c1c1c);
+		}
+
+
+/* FOOTER ELEMENTS  |=======================================================================================================================*/
+#mainFooterCopyright,
+#mainFooterShortCopyright {
+	width:auto;
+	height:28px;
+	left:0;
+    /*
+	bottom:0;
+	position:absolute;
+	padding-left:16px;
+    */
+	padding-top:10px;
+	font-family:Arial;
+	font-size:10px;
+    float:left;
+	}
+
+	.skinLight #mainFooterCopyright,
+	.skinLight #mainFooterShortCopyright {
+		color:#BBB;
+		}
+
+/* FOOTER POWERED IMAGE */
+#mainFooterPowered {
+	width:168px;
+	height:35px;
+	background-position:0 0;
+	background-repeat:no-repeat;
+    float:right;
+	/*
+        position:absolute;
+        right:10px;
+	    bottom:4px;
+    */
+	}
+
+	#mainFooterPowered {
+		background-image:url(../images/footerPoweredByIC.png);
+		}

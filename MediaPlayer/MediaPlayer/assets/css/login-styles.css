@@ -1,0 +1,324 @@
+
+
+html {
+	width:100%;
+	min-height:100%;
+	margin:0;
+	
+	background-color:#292929;
+	background-image: linear-gradient(bottom, rgb(20,20,20) 5%, rgb(30,30,30) 50%, rgb(30,30,30) 90%);
+	background-image: -o-linear-gradient(bottom, rgb(20,20,20) 5%, rgb(30,30,30) 50%, rgb(30,30,30) 90%);
+	background-image: -moz-linear-gradient(bottom, rgb(20,20,20) 5%, rgb(30,30,30) 50%, rgb(30,30,30) 90%);
+	background-image: -webkit-linear-gradient(bottom, rgb(20,20,20) 5%, rgb(30,30,30) 50%, rgb(30,30,30) 90%);
+	background-image: -ms-linear-gradient(bottom, rgb(20,20,20) 5%, rgb(30,30,30) 50%, rgb(30,30,30) 90%);
+	}
+
+body {
+	width:100%;
+	height:100%;
+	min-height:700px;
+	margin:0
+	}
+	
+	
+.generalContainer {
+    width: 100%;
+    margin: 0 auto; 
+	}
+
+.loginTitleContainer {
+	height: 80px;
+	width: 440px;
+	
+	background-image: url(../images/login-title.310a0b88f493eb5f1.png);
+	background-repeat: no-repeat;
+	background-position: 0px 0px;
+
+    /* Center */
+    margin: 0 auto; 
+	}	 
+	
+/* popup (view) */
+.loginFormContainer	{
+    max-width: 440px;	
+    min-height: 400px;
+	padding:15px;
+
+	background-color:#dddddd;
+	border:1px solid #eeeeee;
+
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	-o-border-radius: 4px;
+	border-radius: 4px;
+	-khtml-border-radius: 4px; 
+
+	-moz-box-shadow: 0 0 10px rgba(0,0,0,1);
+	-webkit-box-shadow: 0 0 10px rgba(0,0,0,1);
+	-o-box-shadow: 0 0 10px rgba(0,0,0,1);
+	box-shadow: 0 0 10px rgba(0,0,0,1);
+	-khtml-box-shadow: 0 0 10px rgba(0,0,0,1);
+
+    /* Center */
+    width: 50%;
+    margin: 0 auto; 
+	}
+
+
+.loginFormElements 	{
+    max-width: 100%;
+	background-color:#dddddd
+	}
+
+
+/* title */
+.loginFormTitle {
+	float:left;
+
+	height:30px;
+	width:390px;
+	padding-left:20px;
+	padding-top:10px;
+	margin-bottom:0px;
+	
+	font-family:Arial;
+	font-size:16px;
+	font-weight:bold;
+	color:#111111;
+	text-shadow:1px 1px 0px #ffffff;
+	
+	border-bottom:1px solid #bbbbbb
+	}
+
+/* form */
+.loginFormContent{
+	float:left;
+
+	height:auto;
+	width:100%;
+	/* padding-left:20px; */
+	padding-top:25px;
+	padding-bottom:10px;
+	margin-bottom:15px;
+		
+	font-family:Arial;
+	font-size:16px;
+	font-weight:bold;
+	color:#111111;
+	text-shadow:1px 1px 0px #ffffff;
+
+	border-top:1px solid #ffffff;
+	}
+
+
+/* label */
+.loginFormLabel {
+	display:block;
+	height:20px;
+	width:100%;
+	/* padding-left:30px; */
+	
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	color:#333333;
+	text-shadow:1px 1px 0px #ffffff
+	}
+
+.loginFormLabel:nth-of-type(2) {
+	margin-top:10px;
+	}
+
+
+.loginFormInput{
+	width:100%;
+    height: 35px;
+	padding-left:11px;
+	/* margin-left:18px; */
+
+	font-size:15px;
+	font-weight:bold;
+	color:#69bd63;
+
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	-o-border-radius: 4px;
+	-ms-border-radius: 4px;
+	-khtml-border-radius: 4px;
+	border-radius: 4px;
+
+	background-color:#ffffff;
+	border:1px solid #999999;
+	}
+	
+	
+/* field - focus */
+.loginFormInput:focus {
+	outline:none;
+	color:#fa6d07;	
+	border:1px solid #fa6d07
+	}
+
+	
+/* button container */
+.loginFormButtonContainer {
+	float:left;
+	
+	width:410px;
+	padding-bottom:25px;
+	
+	border-bottom:1px solid #bbbbbb
+	}
+
+
+/* button */
+.loginFormButton  {
+	height:36px;
+	width:130px;
+	margin-left:38px;
+
+	font-size:12px;
+	font-family:Arial;
+	color:#333333;
+	text-shadow:1px 1px 0px #ffffff;
+
+	border:1px solid #ffffff;
+	background-color: #f1f1f1;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#fafafa), to(#f1f1f1));
+	background-image: -webkit-linear-gradient(top, #fafafa, #f1f1f1);
+	background-image: -moz-linear-gradient(top, #fafafa, #f1f1f1);
+	background-image: -o-linear-gradient(top, #fafafa, #f1f1f1);
+	background-image: linear-gradient(to bottom, #fafafa, #f1f1f1);
+
+	-webkit-box-shadow: 0px 0px 3px #333333;
+	-moz-box-shadow:    0px 0px 3px #333333;
+	box-shadow:         0px 0px 3px #333333;
+
+	-webkit-border-radius:3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+
+	cursor:pointer;
+	}
+
+/* button - over effect */
+.loginFormButton:hover {
+	color:#fa6d07;
+	
+	background-color: #ffffff;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#f9f9f9));
+	background-image: -webkit-linear-gradient(top, #ffffff, #f9f9f9);
+	background-image: -moz-linear-gradient(top, #ffffff, #f9f9f9);
+	background-image: -o-linear-gradient(top, #ffffff, #f9f9f9);
+	background-image: linear-gradient(to bottom, #ffffff, #f9f9f9);
+	} 
+	
+.loginFormButton-ds  {
+	height:36px;
+	width:130px;
+	margin-left:38px;
+
+	font-size:12px;
+	font-family:Arial;
+	color:#cccccc;
+
+	border:1px solid #cccccc;
+	background-color: #dddddd;
+
+	-webkit-border-radius:3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+
+	cursor:pointer;
+	}	
+
+/* messages container */
+.loginFormMessageContainer	{
+	float:left;
+	
+	width:410px;
+	padding-bottom:20px;
+	padding-top:20px;
+	
+	border-top:1px solid #ffffff
+	}	
+	
+/* error messages */
+.loginErrorMessage {
+	float:left;
+	width:322px;
+	min-height:40px;
+	padding-left:40px;
+	padding-right:8px;
+	margin-top:3px;
+	margin-left:20px;
+
+	font-family:Arial;
+	font-size:11px;
+	font-weight:bold;
+	color:#ffffff;
+
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	-o-border-radius: 3px;
+	-ms-border-radius: 3px;
+	-khtml-border-radius: 3px;
+	border-radius: 3px;
+
+
+	background-color:#161616;
+	background-image:url(../images/loginMessageIconError.5299338ae27f44a5.png);
+	background-repeat:no-repeat;
+	background-position:8px 8px
+
+	}
+
+/* waiting messages */
+.loginWaitingMessage {
+	float:left;
+	width:322px;
+	height:40px;
+	padding-left:40px;
+
+	margin-top:3px;
+	margin-left:20px;
+
+	font-family:Arial;
+	font-size:13px;
+	font-weight:bold;
+	color:#69bd63;
+
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	-o-border-radius: 3px;
+	-ms-border-radius: 3px;
+	-khtml-border-radius: 3px;
+	border-radius: 3px;
+
+	background-color:#161616;
+	background-image:url(../images/loginMessageIconProcess.c481cc9e0149a851.gif);
+	background-repeat:no-repeat;
+	background-position:8px 8px
+
+	}
+
+/* message text container (both) */
+.loginErrorMessage div,.loginWaitingMessage div {
+	padding-top:12px;
+	padding-bottom:10px
+	}
+
+/* bottom logo (footer) */
+.loginSignature 	{
+	float:left;
+	
+	width:140px;
+	height:40px;
+	margin:0 auto;
+	margin-left:7px;
+	margin-top:5px;
+	
+	background-image:url(../images/login-signature.e61207fd9960e6d1.png);
+	background-repeat:no-repeat
+	}
+

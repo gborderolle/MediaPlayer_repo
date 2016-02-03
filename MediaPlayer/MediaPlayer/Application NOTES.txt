@@ -1,0 +1,31 @@
+﻿NOTES
+
+1] Multimdia compatibility applications by formats:
+
+Audio:
+.wav - html5 - sound manager js
+.mp3 - html5 - sound manager js
+.wma - html5 - sound manager js
+.m4a - html5 - sound manager js
+.oga - html5 - sound manager js
+
+Screen recording:
+.fbs - oreka player java
+
+Video:
+.avi - webchimera player js
+.mp4 - webchimera player js
+.wmv - webchimera player js
+
+Image:
+.jpg - html5
+.jepg - html5
+.png - html5
+.bmp - html5
+
+
+
+2] Alert messages located in ExternalResources/Alert_Messages.js
+
+3] Grid results refreshes every 5 minutes
+

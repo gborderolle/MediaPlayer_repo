@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Smart Slider</title>
+
+    <script src="jquery-1.4.4.min.js" type="text/javascript"></script>
+
+    <script src="smartslider.js" type="text/javascript"></script>
+
+    <link href="smartslider.css" rel="stylesheet" type="text/css" />
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#trackbar1').strackbar({ callback: onTick1, defaultValue: 4, sliderHeight: 4, sliderWidth: 300, style: 'style1', animate: true, ticks: true, labels: true, trackerHeight: 20, trackerWidth: 19 });
+            $('#trackbar2').strackbar({ callback: onTick2, defaultValue: 5, sliderHeight: 6, sliderWidth: 400, style: 'style2', animate: true, ticks: true, labels: true, trackerHeight: 23, trackerWidth: 23 });
+            $('#trackbar3').strackbar({ callback: onTick3, defaultValue: 6, sliderHeight: 19, sliderWidth: 500, style: 'style3', animate: true, ticks: true, labels: true, trackerHeight: 23, trackerWidth: 23 });
+        });
+        function onTick1(value) {
+            $('#text1').html("Current Value: " + value);
+        }
+        function onTick2(value) {
+            $('#text2').html("Current Value: " + value);
+        }
+        function onTick3(value) {
+            $('#text3').html("Current Value: " + value);
+        }
+    </script>
+
+</head>
+<body>
+    <div style="width: 690px; float: left; padding: 20px;">
+        <div style="position: relative">
+            <div id="trackbar1">
+            </div>
+            <div id="text1" style="clear: both; width: 300px; text-align: center;">
+            </div>
+        </div>
+        <div style="clear: both;height:20px;">
+        </div>
+        <div style="position: relative">
+            <div id="trackbar2">
+            </div>
+            <div id="text2" style="clear: both; width: 400px; text-align: center;">
+            </div>
+        </div>
+        <div style="clear: both;height:20px;">
+        </div>
+        <div style="position: relative">
+            <div id="trackbar3">
+            </div>
+            <div id="text3" style="clear: both; width: 600px; text-align: center;margin-top:4px;">
+            </div>
+        </div>
+    </div>
+</body>
+</html>

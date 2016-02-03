@@ -1,0 +1,325 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{BFC3ED4C-3006-4CA2-A36C-FC2C5E2DC7B8}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MediaPlayer</RootNamespace>
+    <AssemblyName>MediaPlayer</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Interop.Shell32, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>assets\libraries\Interop.Shell32.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>assets\libraries\Microsoft.WindowsAPICodePack.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack.Shell, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>assets\libraries\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data, Version=6.3.6.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>assets\libraries\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="NAudio, Version=1.7.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>assets\libraries\NAudio.dll</HintPath>
+    </Reference>
+    <Reference Include="NAudio.WindowsMediaFormat, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>assets\libraries\NAudio.WindowsMediaFormat.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>assets\libraries\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Mobile" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="assets\applets\deployJava.js" />
+    <Content Include="assets\css\bar-ui.css" />
+    <Content Include="assets\css\BootSideMenu.css" />
+    <Content Include="assets\css\bootstrap-theme.css" />
+    <Content Include="assets\css\bootstrap.css" />
+    <Content Include="assets\css\bootstrap.icon-large.css" />
+    <Content Include="assets\css\bootstrap.min.css" />
+    <Content Include="assets\css\datetimepicker.css" />
+    <Content Include="assets\css\font-awesome.css" />
+    <Content Include="assets\css\highlight.css" />
+    <Content Include="assets\css\jquery-ui.css" />
+    <Content Include="assets\css\jquery-ui.structure.css" />
+    <Content Include="assets\css\jquery-ui.theme.css" />
+    <Content Include="assets\css\jquery.photobox.css" />
+    <Content Include="assets\css\jslider.css" />
+    <Content Include="assets\css\login-styles.css" />
+    <Content Include="assets\css\numericUpDown.css" />
+    <Content Include="assets\css\popbox.css" />
+    <Content Include="assets\css\protoplasm.css" />
+    <Content Include="assets\css\protoplasm_full.css" />
+    <Content Include="assets\css\qtip.css" />
+    <Content Include="assets\css\styles.css" />
+    <Content Include="assets\css\timeline-styles.css" />
+    <Content Include="assets\css\timepicker.css" />
+    <Content Include="assets\fonts\fontawesome-webfont.svg" />
+    <Content Include="assets\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="assets\gadgets\gradient_red.jpg" />
+    <Content Include="assets\gadgets\tracker.png" />
+    <Content Include="assets\gadgets\tracker_black.png" />
+    <Content Include="assets\gadgets\tracker_simple.png" />
+    <Content Include="assets\html_extras\html_player.html" />
+    <Content Include="assets\images\glyphicons.png" />
+    <Content Include="assets\images\logo.ico" />
+    <Content Include="assets\gadgets\smartslider.css" />
+    <Content Include="assets\gadgets\smartslider.js" />
+    <Content Include="assets\images\pointer.png" />
+    <Content Include="assets\images\pointer1.png" />
+    <Content Include="assets\js\bar-ui.js" />
+    <Content Include="assets\js\BootSideMenu.js" />
+    <Content Include="assets\js\bootstrap.min.js" />
+    <Content Include="assets\js\datetimepicker.full.min.js" />
+    <Content Include="assets\js\draggable-0.1.js" />
+    <Content Include="assets\js\highlight.js" />
+    <Content Include="assets\js\inputmask.date.extensions.js" />
+    <Content Include="assets\js\inputmask.dependencyLib.jquery.js" />
+    <Content Include="assets\js\inputmask.extensions.js" />
+    <Content Include="assets\js\inputmask.js" />
+    <Content Include="assets\js\jquery.inputmask.bundle.js" />
+    <Content Include="assets\js\jquery-ui.js" />
+    <Content Include="assets\js\jquery.ba-dotimeout.js" />
+    <Content Include="assets\js\jquery.dependClass-0.1.js" />
+    <Content Include="assets\js\jquery.inputmask.js" />
+    <Content Include="assets\js\jquery.maskedinput.js" />
+    <Content Include="assets\js\jquery.numberformatter-1.2.3.js" />
+    <Content Include="assets\js\jquery.photobox.js" />
+    <Content Include="assets\js\jquery.qtip-1.0.0-rc3.js" />
+    <Content Include="assets\js\jquery.slider.js" />
+    <Content Include="assets\js\jshashtable-2.1_src.js" />
+    <Content Include="assets\js\loginForm_common.8e02390dee35ca97.js" />
+    <Content Include="assets\js\moment.js" />
+    <Content Include="assets\js\npm.js" />
+    <Content Include="assets\js\popbox.js" />
+    <Content Include="assets\js\popbox2.js" />
+    <Content Include="assets\js\popbox3.js" />
+    <Content Include="assets\js\popbox4.js" />
+    <Content Include="assets\js\protoplasm.js" />
+    <Content Include="assets\js\soundmanager2-nodebug.js" />
+    <Content Include="assets\js\soundmanager2.js" />
+    <Content Include="assets\js\timeframe.js" />
+    <Content Include="assets\js\timepicker.js" />
+    <Content Include="assets\js\tmpl.js" />
+    <Content Include="assets\js\webchimera.js" />
+    <Content Include="assets\libraries\Microsoft.WindowsAPICodePack.dll" />
+    <Content Include="assets\libraries\Microsoft.WindowsAPICodePack.Shell.dll" />
+    <Content Include="assets\libraries\MySql.Data.dll" />
+    <Content Include="assets\libraries\NAudio.dll" />
+    <Content Include="assets\libraries\NAudio.WindowsMediaFormat.dll" />
+    <Content Include="assets\libraries\Newtonsoft.Json.dll" />
+    <Content Include="assets\swf\soundmanager2.swf" />
+    <Content Include="assets\swf\soundmanager2_debug.swf" />
+    <Content Include="assets\swf\soundmanager2_flash9.swf" />
+    <Content Include="assets\swf\soundmanager2_flash9_debug.swf" />
+    <Content Include="Dashboard.aspx" />
+    <Content Include="ExternalResources\Alert_Messages.js" />
+    <Content Include="Fullscreen.aspx" />
+    <Content Include="Login.aspx" />
+    <Content Include="Scripts\jquery-1.7.1.intellisense.js" />
+    <Content Include="Scripts\jquery-1.7.1.js" />
+    <Content Include="Scripts\jquery-1.7.1.min.js" />
+    <Content Include="Application NOTES.txt" />
+    <None Include="Service References\RecordingIntegration\configuration91.svcinfo" />
+    <None Include="Service References\RecordingIntegration\configuration.svcinfo" />
+    <None Include="Service References\RecordingIntegration\OperacionesGrabacion1.wsdl" />
+    <None Include="Service References\RecordingIntegration\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\RecordingIntegration\OperacionesGrabacion1.disco" />
+    <Content Include="TestCenterASPX.aspx" />
+    <Content Include="TestCenterHTML.html" />
+    <Content Include="TestCenterHTML_2.html" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Dashboard.aspx.cs">
+      <DependentUpon>Dashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dashboard.aspx.designer.cs">
+      <DependentUpon>Dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Data Generic\DataAccessContext_MySQL.cs" />
+    <Compile Include="Data Generic\DataAccessObject.cs" />
+    <Compile Include="Data Objects\ExternalMethodsDAO.cs" />
+    <Compile Include="Data Objects\UserDAO.cs" />
+    <Compile Include="Domain\Folio.cs" />
+    <Compile Include="Domain\User.cs" />
+    <Compile Include="Extras\BCrypt.cs" />
+    <Compile Include="Extras\DownloadFile.ashx.cs">
+      <DependentUpon>DownloadFile.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Extras\LibBlogger.cs" />
+    <Compile Include="Extras\Logger.cs" />
+    <Compile Include="Extras\RootObject.cs" />
+    <Compile Include="Extras\Span.cs" />
+    <Compile Include="Fullscreen.aspx.cs">
+      <DependentUpon>Fullscreen.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Fullscreen.aspx.designer.cs">
+      <DependentUpon>Fullscreen.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Global\GlobalMethods.cs" />
+    <Compile Include="Global\GlobalVariables.cs" />
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Security\UserTokenRepository.cs" />
+    <Compile Include="Security\UserToken.cs" />
+    <Compile Include="Service References\RecordingIntegration\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Site.Master.cs">
+      <DependentUpon>Site.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Site.Master.designer.cs">
+      <DependentUpon>Site.Master</DependentUpon>
+    </Compile>
+    <Compile Include="TestCenterASPX.aspx.cs">
+      <DependentUpon>TestCenterASPX.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TestCenterASPX.aspx.designer.cs">
+      <DependentUpon>TestCenterASPX.aspx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="assets\scripts\" />
+    <Folder Include="Dummy Files\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="assets\css\bootstrap-theme.css.map" />
+    <Content Include="assets\css\bootstrap.css.map" />
+    <Content Include="Site.Master" />
+    <Content Include="assets\fonts\DroidSans-Bold.ttf" />
+    <Content Include="assets\fonts\DroidSans-webfont.ttf" />
+    <Content Include="assets\fonts\DroidSans.ttf" />
+    <Content Include="assets\fonts\fontawesome-webfont.eot" />
+    <Content Include="assets\fonts\fontawesome-webfont.ttf" />
+    <Content Include="assets\fonts\fontawesome-webfont.woff" />
+    <Content Include="assets\fonts\FontAwesome.otf" />
+    <Content Include="assets\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="assets\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="assets\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="assets\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="assets\fonts\TradeGothicLTStd-Bd2.otf" />
+    <Content Include="Extras\DownloadFile.ashx" />
+    <Content Include="packages.config" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\RecordingIntegration\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>2055</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://gborderolle:7070/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

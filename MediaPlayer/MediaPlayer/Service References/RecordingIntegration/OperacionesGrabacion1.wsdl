@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://grabacion.interfaces.esb.promad.com" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://grabacion.interfaces.esb.promad.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://grabacion.interfaces.esb.promad.com">
+      <s:element name="reproduccionFolio">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="folio" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="reproduccionFolioResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="reproduccionFolioReturn" type="tns:ArrayOfAnyType" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfAnyType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" form="unqualified" name="item" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="seleccionFolioUnidad">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ip" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="folio" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="rfsi" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="timeStamp" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="status" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="seleccionFolioUnidadResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="seleccionFolioUnidadReturn" type="tns:ArrayOfAnyType" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="sincronizaUsuario">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="cuenta" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="clave" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="tipoUsuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="opcion" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="sincronizaUsuarioResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sincronizaUsuarioReturn" type="tns:ArrayOfAnyType" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="videoAsociado">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="folio" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="numeroCamara" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="timeStampInicio" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="timeStampFin" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="videoAsociadoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="videoAsociadoReturn" type="tns:ArrayOfAnyType" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="notificacionVideo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="fileName" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="status" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="description" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="notificacionVideoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="notificacionVideoReturn" type="tns:ArrayOfAnyType" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="reproduccionFolioSoapIn">
+    <wsdl:part name="parameters" element="tns:reproduccionFolio" />
+  </wsdl:message>
+  <wsdl:message name="reproduccionFolioSoapOut">
+    <wsdl:part name="parameters" element="tns:reproduccionFolioResponse" />
+  </wsdl:message>
+  <wsdl:message name="seleccionFolioUnidadSoapIn">
+    <wsdl:part name="parameters" element="tns:seleccionFolioUnidad" />
+  </wsdl:message>
+  <wsdl:message name="seleccionFolioUnidadSoapOut">
+    <wsdl:part name="parameters" element="tns:seleccionFolioUnidadResponse" />
+  </wsdl:message>
+  <wsdl:message name="sincronizaUsuarioSoapIn">
+    <wsdl:part name="parameters" element="tns:sincronizaUsuario" />
+  </wsdl:message>
+  <wsdl:message name="sincronizaUsuarioSoapOut">
+    <wsdl:part name="parameters" element="tns:sincronizaUsuarioResponse" />
+  </wsdl:message>
+  <wsdl:message name="videoAsociadoSoapIn">
+    <wsdl:part name="parameters" element="tns:videoAsociado" />
+  </wsdl:message>
+  <wsdl:message name="videoAsociadoSoapOut">
+    <wsdl:part name="parameters" element="tns:videoAsociadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="notificacionVideoSoapIn">
+    <wsdl:part name="parameters" element="tns:notificacionVideo" />
+  </wsdl:message>
+  <wsdl:message name="notificacionVideoSoapOut">
+    <wsdl:part name="parameters" element="tns:notificacionVideoResponse" />
+  </wsdl:message>
+  <wsdl:portType name="OperacionesGrabacionSoapBinding">
+    <wsdl:operation name="reproduccionFolio">
+      <wsdl:input message="tns:reproduccionFolioSoapIn" />
+      <wsdl:output message="tns:reproduccionFolioSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="seleccionFolioUnidad">
+      <wsdl:input message="tns:seleccionFolioUnidadSoapIn" />
+      <wsdl:output message="tns:seleccionFolioUnidadSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="sincronizaUsuario">
+      <wsdl:input message="tns:sincronizaUsuarioSoapIn" />
+      <wsdl:output message="tns:sincronizaUsuarioSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="videoAsociado">
+      <wsdl:input message="tns:videoAsociadoSoapIn" />
+      <wsdl:output message="tns:videoAsociadoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="notificacionVideo">
+      <wsdl:input message="tns:notificacionVideoSoapIn" />
+      <wsdl:output message="tns:notificacionVideoSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="OperacionesGrabacionSoapBinding" type="tns:OperacionesGrabacionSoapBinding">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="reproduccionFolio">
+      <soap:operation soapAction="http://grabacion.interfaces.esb.promad.com/reproduccionFolio" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="seleccionFolioUnidad">
+      <soap:operation soapAction="http://grabacion.interfaces.esb.promad.com/seleccionFolioUnidad" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sincronizaUsuario">
+      <soap:operation soapAction="http://grabacion.interfaces.esb.promad.com/sincronizaUsuario" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="videoAsociado">
+      <soap:operation soapAction="http://grabacion.interfaces.esb.promad.com/videoAsociado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="notificacionVideo">
+      <soap:operation soapAction="http://grabacion.interfaces.esb.promad.com/notificacionVideo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="OperacionesGrabacionSoapBinding1" type="tns:OperacionesGrabacionSoapBinding">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="reproduccionFolio">
+      <soap12:operation soapAction="http://grabacion.interfaces.esb.promad.com/reproduccionFolio" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="seleccionFolioUnidad">
+      <soap12:operation soapAction="http://grabacion.interfaces.esb.promad.com/seleccionFolioUnidad" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sincronizaUsuario">
+      <soap12:operation soapAction="http://grabacion.interfaces.esb.promad.com/sincronizaUsuario" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="videoAsociado">
+      <soap12:operation soapAction="http://grabacion.interfaces.esb.promad.com/videoAsociado" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="notificacionVideo">
+      <soap12:operation soapAction="http://grabacion.interfaces.esb.promad.com/notificacionVideo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="OperacionesGrabacion">
+    <wsdl:port name="OperacionesGrabacionSoapBinding" binding="tns:OperacionesGrabacionSoapBinding">
+      <soap:address location="http://maxiwin7/recordingintegration/WebServices/OperacionesGrabacion.asmx" />
+    </wsdl:port>
+    <wsdl:port name="OperacionesGrabacionSoapBinding1" binding="tns:OperacionesGrabacionSoapBinding1">
+      <soap12:address location="http://maxiwin7/recordingintegration/WebServices/OperacionesGrabacion.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

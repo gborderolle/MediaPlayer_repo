@@ -1,0 +1,89 @@
+/*
+
+Visual Studio-like style based on original C# coloring by Jason Diamond <jason@diamond.name>
+
+*/
+.comment,
+.annotation,
+.template_comment,
+.diff .header,
+.chunk,
+.apache .cbracket {
+    color: rgb(0, 128, 0);
+}
+
+.keyword,
+.id,
+.title,
+.vbscript .built_in,
+.rsl .built_in,
+.cpp .built_in,
+.aggregate,
+.smalltalk .class,
+.winutils,
+.bash .variable {
+   /* color: rgb(0, 0, 255); */
+}
+
+.string,
+.title,
+.parent,
+.tag .attribute .value,
+.rules .value,
+.rules .value .number,
+.ruby .symbol,
+.instancevar,
+.aggregate,
+.template_tag,
+.django .variable,
+.addition,
+.flow,
+.stream,
+.apache .tag,
+.date {
+   /* color: rgb(163, 21, 21); */
+}
+
+.ruby .string,
+.decorator,
+.filter .argument,
+.localvars,
+.array,
+.attr_selector,
+.pi,
+.doctype,
+.deletion,
+.envvar,
+.shebang,
+.preprocessor,
+.userType,
+.apache .sqbracket {
+    color: rgb(43, 145, 175);
+}
+
+.phpdoc,
+.javadoc,
+.xmlDocTag {
+    color: rgb(128, 128, 128);
+}
+
+.html .comment{ color: #888786; font-style: italic; }
+.html .tag{ color: black; font-weight: bold; }
+.html .keyword{ color: black; font-weight: bold; }
+.html .attribute{ color: #006E26; font-weight: normal; }
+.html .attribute .value{ color: #AA0000; }
+
+.css{ color: black; font-weight: bold; }
+.css .comment{ color: #888786; font-style: italic; }
+.css .keyword, .css .class{ color: #B07E00; font-weight: normal; }
+.css .rule .keyword{ color: black; font-weight: bold; }
+.css .rule .number, .css .rule .value{ color: #0057AE; font-weight: normal; }
+
+.javascript .array{ color: #008000; }
+.javascript .keyword{ color: black; font-weight: bold; }
+.javascript .comment{ color: #008000; font-style: italic; }
+.javascript .number{  color: #B07E00; }
+.javascript .literal{ color: #008000; font-weight: bold; }
+.javascript .string{  color: #FF80E0; }
+.javascript .regexp{  color: #006E26; }
+.javascript .function{ color: #644A9B; }

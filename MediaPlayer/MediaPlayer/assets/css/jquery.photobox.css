@@ -1,0 +1,40 @@
+img.photobox {
+display: inline-block;
+vertical-align: top;
+cursor: pointer;
+}
+#photobox-container {
+display: table-cell;
+vertical-align: middle;
+position: fixed;
+top: 0;
+right: 0;
+bottom: 0;
+left: 0;
+background-color: rgba(0, 0, 0, 0.9);
+font: 0/0 a;
+text-align: center;
+}
+#photobox-container:before {
+content: ' ';
+display: inline-block;
+vertical-align: middle;
+height: 100%;
+}
+#photobox-container > img {
+display: inline-block;
+vertical-align: middle;
+/*max-width: 80%;
+max-height: 80%;*/
+max-width: 95%;
+max-height: 95%;
+}
+#photobox-close {
+position: absolute;
+top: 50px;
+right: 45px;
+width: 16px;
+height: 16px;
+background: url("../images/close.png");
+cursor: pointer;
+}

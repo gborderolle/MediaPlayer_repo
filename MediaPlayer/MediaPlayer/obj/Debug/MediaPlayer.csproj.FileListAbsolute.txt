@@ -1,0 +1,13 @@
+C:\Users\Gborde\documents\visual studio 2013\Projects\MediaPlayer\MediaPlayer\bin\MediaPlayer.dll.config
+C:\Users\Gborde\documents\visual studio 2013\Projects\MediaPlayer\MediaPlayer\bin\MediaPlayer.dll
+C:\Users\Gborde\documents\visual studio 2013\Projects\MediaPlayer\MediaPlayer\bin\MediaPlayer.pdb
+C:\Users\Gborde\documents\visual studio 2013\Projects\MediaPlayer\MediaPlayer\bin\Microsoft.WindowsAPICodePack.dll
+C:\Users\Gborde\documents\visual studio 2013\Projects\MediaPlayer\MediaPlayer\bin\Microsoft.WindowsAPICodePack.Shell.dll
+C:\Users\Gborde\documents\visual studio 2013\Projects\MediaPlayer\MediaPlayer\bin\MySql.Data.dll
+C:\Users\Gborde\documents\visual studio 2013\Projects\MediaPlayer\MediaPlayer\bin\NAudio.dll
+C:\Users\Gborde\documents\visual studio 2013\Projects\MediaPlayer\MediaPlayer\bin\NAudio.WindowsMediaFormat.dll
+C:\Users\Gborde\documents\visual studio 2013\Projects\MediaPlayer\MediaPlayer\bin\Newtonsoft.Json.dll
+C:\Users\Gborde\documents\visual studio 2013\Projects\MediaPlayer\MediaPlayer\bin\NAudio.xml
+C:\Users\Gborde\documents\visual studio 2013\Projects\MediaPlayer\MediaPlayer\obj\Debug\MediaPlayer.dll
+C:\Users\Gborde\documents\visual studio 2013\Projects\MediaPlayer\MediaPlayer\obj\Debug\MediaPlayer.pdb
+C:\Users\Gborde\documents\visual studio 2013\Projects\MediaPlayer\MediaPlayer\obj\Debug\MediaPlayer.csprojResolveAssemblyReference.cache

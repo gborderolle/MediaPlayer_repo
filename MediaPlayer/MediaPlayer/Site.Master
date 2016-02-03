@@ -1,0 +1,86 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="MediaPlayer.Site" %>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head runat="server">
+      <link rel="Shortcut Icon" type="image/ico" href="assets/images/logo.ico"/>
+
+        <!-- Scripts -->
+        <script src="assets/js/jquery-1.12.0.js"></script>
+        <script src="assets/js/bootstrap.min.js"></script>
+        <script src="assets/js/jquery-ui.js"></script>
+
+        <!-- Styles -->
+        <link href="assets/css/bootstrap.min.css" rel="stylesheet" id="bootstrap"/>
+        <link href="assets/css/bootstrap.icon-large.css" rel="stylesheet" />
+        <link href="assets/css/font-awesome.css" rel="stylesheet" />
+        <link href="assets/css/styles.css" rel="stylesheet" id="styles"/>
+        <link href="assets/css/jquery-ui.css" rel="stylesheet" />
+        <link href="assets/css/jquery-ui.structure.css" rel="stylesheet" />
+        <link href="assets/css/jquery-ui.theme.css" rel="stylesheet" />
+
+        <title>inConcert - MediaPlayer</title>
+      <style>
+         body, html {
+         height: 100%;
+         }
+
+         #wrapper {
+            min-height: 100%;
+            position: relative;
+            background-color: rgb(30, 30, 30) !important;
+        }
+
+        #header {
+            -moz-box-shadow: 0px 1px 2px rgba(0,0,0,0.55);
+            -webkit-box-shadow: 0px 1px 2px rgba(0,0,0,0.55);
+            -khtml-box-shadow: 0px 1px 2px rgba(0,0,0,0.55);
+            box-shadow: 0px 1px 2px rgba(0,0,0,0.55);
+        }
+        
+        #content {
+           /* padding-bottom: 100px; */
+        }
+        
+        #footer {
+            color: #333;
+            text-shadow: 1px 1px 0 rgba(255,255,255,0.6);
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+
+      </style>
+
+       <asp:ContentPlaceHolder ID="ContentHeader" runat="server">
+      </asp:ContentPlaceHolder>
+   </head>
+   <body>
+      <div id="wrapper">
+         <div id="header">
+            <div class="navbar navbar-default navbar-static-top" style="margin-bottom: 0px; height: 40px; min-height: 30px;">
+               <div class="container">
+                  <div class="navbar-header">
+                     <div style="text-align:center;">
+                        <a class="navbar-brand" href="#" style="padding: 0px;"><img src="assets/images/logo.png" class="img-responsive" style="width: 30px;display: inline-block; margin-bottom:5px;margin-right:5px;"/><label class="title" style="padding-top: 10px;padding-bottom: 19.5px;">inConcert </label></a>
+                     </div>
+                  </div>
+
+                    <asp:ContentPlaceHolder ID="ContentLoginStatus" runat="server">
+      </asp:ContentPlaceHolder>
+
+               </div>
+            </div>
+         </div>
+         <div id="content">
+            <asp:ContentPlaceHolder ID="ContentBody" runat="server">
+            </asp:ContentPlaceHolder>
+         </div>
+            <div id="inboxMainFooter">
+               <div id="mainFooterCopyright">© inConcert 2015 - All rights reserved</div>
+               <div id="mainFooterShortCopyright" hidden="">© inConcert 2015</div>
+               <div id="mainFooterPowered"></div>
+            </div>
+      </div>
+   </body>
+</html>
