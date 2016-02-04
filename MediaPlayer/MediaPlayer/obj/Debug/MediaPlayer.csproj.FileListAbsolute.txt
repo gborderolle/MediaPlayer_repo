@@ -11,7 +11,6 @@ C:\Users\Gborde\documents\visual studio 2013\Projects\MediaPlayer\MediaPlayer\bi
 C:\Users\Gborde\documents\visual studio 2013\Projects\MediaPlayer\MediaPlayer\obj\Debug\MediaPlayer.dll
 C:\Users\Gborde\documents\visual studio 2013\Projects\MediaPlayer\MediaPlayer\obj\Debug\MediaPlayer.pdb
 C:\Users\Gborde\documents\visual studio 2013\Projects\MediaPlayer\MediaPlayer\obj\Debug\MediaPlayer.csprojResolveAssemblyReference.cache
-C:\Projects\MediaPlayer_repo\MediaPlayer\MediaPlayer\bin\MediaPlayer.dll.config
 C:\Projects\MediaPlayer_repo\MediaPlayer\MediaPlayer\bin\MediaPlayer.dll
 C:\Projects\MediaPlayer_repo\MediaPlayer\MediaPlayer\bin\MediaPlayer.pdb
 C:\Projects\MediaPlayer_repo\MediaPlayer\MediaPlayer\bin\Microsoft.WindowsAPICodePack.dll
@@ -24,3 +23,4 @@ C:\Projects\MediaPlayer_repo\MediaPlayer\MediaPlayer\bin\NAudio.xml
 C:\Projects\MediaPlayer_repo\MediaPlayer\MediaPlayer\obj\Debug\MediaPlayer.csprojResolveAssemblyReference.cache
 C:\Projects\MediaPlayer_repo\MediaPlayer\MediaPlayer\obj\Debug\MediaPlayer.dll
 C:\Projects\MediaPlayer_repo\MediaPlayer\MediaPlayer\obj\Debug\MediaPlayer.pdb
+C:\Projects\MediaPlayer_repo\MediaPlayer\MediaPlayer\bin\MediaPlayer.dll.config

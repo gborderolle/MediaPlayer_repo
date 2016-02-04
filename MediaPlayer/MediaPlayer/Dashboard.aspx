@@ -4586,7 +4586,6 @@ div.disabled,button.disabled,a.disabled {
             <div id="divTimeline" class="div-panel2 col-md-12 col-xs-12 img-rounded" style="height:100%; z-index:0;left: 0; border-radius: 13px;">
                <h1 style="margin-top: 5px;"><span class="special-title label label-primary" style="font-weight: normal;">Timeline</span></h1>
                
-                
 
                 <div class="row" style="display:inline">
 

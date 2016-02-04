@@ -188,7 +188,7 @@
     <None Include="Service References\RecordingIntegration\OperacionesGrabacion1.disco" />
     <Content Include="TestCenterASPX.aspx" />
     <Content Include="TestCenterHTML.html" />
-    <Content Include="TestCenterHTML_2.html" />
+    <Content Include="theme-2.css" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
