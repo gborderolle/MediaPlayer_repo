@@ -462,8 +462,9 @@
            if (pointer_timeline != null) {
                pointer_timeline.draggable({
                    containment: '#divTimelineProgress',
+                   axis: "x", 
+                   scroll: false,
                    cursor: 'move',
-                   snap: '#divTimelineProgress',
                    stop: handleDragStop,
                    drag: handleDragging
                });
@@ -473,14 +474,13 @@
            if (MAIN_LINE != null && MAIN_LINE.length) {
                var x1 = parseInt(MAIN_LINE.attr("x1"), 10);
                var x2 = parseInt(MAIN_LINE.attr("x2"), 10);
-               $('#divTimelineProgress').css("width", (x2 - x1) + "px");
+               $('#divTimelineProgress').css("width", (x2 - x1 + 4) + "px");
                $("#divTimelineProgress").offset({
-                   left: $("#timeframe > svg").offset().left + 40 //Fix Left Offset 
+                   left: $("#timeframe > svg").offset().left + 42 //Fix Left Offset 
                 })
-               //$("#divTimelineProgress").offset({ left: MAIN_LINE.offset().left })
            }
-       }); 
-       
+       });
+
        // END On Ready
 
        // Load Alert messages default values
@@ -613,6 +613,50 @@
            }
 
        }
+
+       function initGlobalplay() {
+
+           if ($("#button_globalplay").hasClass("play")) {
+
+               $("#button_globalplay").removeClass("play");
+               $("#button_globalplay").addClass("pauseAudio");
+               startGlobalplay();
+           } else {
+
+               $("#button_globalplay").removeClass("pauseAudio");
+               $("#button_globalplay").addClass("play");
+               abortGlobalplay();
+           }
+           return false;
+       }
+
+       var timer_globalplay;
+       function startGlobalplay() {
+           console.log("initGlobalplay");
+
+           var w = $("#divTimelineProgress").css("width");
+           $("#sm2-progress-track").css("width", w);
+
+           timer_globalplay = setInterval(whilePlayingGlobalplay, 1000);
+       }
+
+       var timer = 0;
+       function whilePlayingGlobalplay() {
+           var progressMaxLeft = 100;
+           var left_current = parseInt($("#sm2-progress-ball_TIMELINE").css("left"), 10);
+
+           timer = timer + 2;
+           //var left_final = Math.min(progressMaxLeft, Math.max(0, (progressMaxLeft * (timer / 500)))) + '%';
+           var left_final = progressMaxLeft * (timer / 500) + '%';
+           console.log(left_final);
+
+           $("#sm2-progress-ball_TIMELINE").css("left", left_final);
+       }
+
+       function abortGlobalplay() { 
+           clearInterval(timer_globalplay);
+       }
+
 
        function handleDragging(event, ui) {
            var posX = ui.offset.left - $("#svg_timeframe").offset().left;
@@ -1750,11 +1794,14 @@
                        //sm2_inline_element.css('left', vElementRect.offset().left); // + 3
                        sm2_inline_element.offset({ left: vElementRect.offset().left });
                        sm2_progress_bd.css('width', _width);
+
+                       //
+                       sm2_progress_bd.css('left', _width);
+
                        sm2_progress_track.css('height', 15);
 
                        // Pointer left and top position
                        pointer_timeline.offset({ left: vElement.offset().left });
-                       //sm2_inline_element.offset({ top: timeline.offset().top + 15 }); // + 25
 
                        sm2_inline_element.offset({ top: $("#divTimelineProgress").offset().top })
                    }
@@ -3443,6 +3490,7 @@
              $("input[id*='uploadDate']").val(date_str.format(
                  'DD-MM-YYYY HH:mm:ss'));
          }
+
      }
 
        // Load elements from folio selected - Get data from server
@@ -4596,7 +4644,7 @@ div.disabled,button.disabled,a.disabled {
 					<a href="#" class="left" data-attr="prevAudio"></a>
 				</li>
 				<li>
-					<a href="#" class="play" data-attr="playPauseAudio"></a> <!-- pauseAudio -->
+					<a href="#" id="button_globalplay" class="play" data-attr="playPauseAudio" onclick="return initGlobalplay()"></a> <!-- pauseAudio -->
 				</li>
 				<li>
 					<a href="#" class="right" data-attr="nextAudio"></a>
@@ -4605,7 +4653,7 @@ div.disabled,button.disabled,a.disabled {
 		</div>
 	</div>
 
-        <div id="divTimelineProgress" style="height:15px; position:absolute; margin-top: -5px;"></div> <!-- Contenedor draggable para el Progress Pointer -->
+        <div id="divTimelineProgress" style="height:8px; position:absolute; margin-top: -5px;"></div> <!-- Contenedor draggable para el Progress Pointer -->
 
         <div id="timeframe" class="col-md-10" style="width:94%; margin:auto; background:transparent; padding-left: 0;"></div>
         <div id="sm2-inline-element" class="sm2-inline-element sm2-inline-status" style="position:absolute;">
