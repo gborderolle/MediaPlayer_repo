@@ -2,6 +2,7 @@
 
 <asp:content id="Content2" ContentPlaceHolderID="ContentHeader" runat="server">
     <link href="assets/css/login-styles.css" rel="stylesheet"/>
+
     <script type="text/javascript">
 
         $(document).ready(function () {
@@ -9,8 +10,6 @@
 
             // Initial focus
             $("input[id*='_txbUser']").focus();
-
-            $("#mainFooterCopyright").hide();
         });
 
         function enterKey(e) {
@@ -80,6 +79,15 @@
     text-align: left;
     margin-top: 2px;
 }
+    #content {
+       
+    }
+
+    #inboxMainFooter {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+    }
 
    </style>
 
@@ -131,7 +139,6 @@
 		</div>
 		
 	</div>
-	<div class="loginSignature"></div>
 
 
 </div>

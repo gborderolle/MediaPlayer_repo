@@ -413,18 +413,16 @@ ul li p {
 #mainFooterCopyright,
 #mainFooterShortCopyright {
 	width:auto;
-	height:28px;
-	left:0;
-    /*
-	bottom:0;
-	position:absolute;
-	padding-left:16px;
-    */
-	padding-top:10px;
 	font-family:Arial;
 	font-size:10px;
-    float:left;
+    color:#BBB;
 	}
+
+#mainFooterCopyright label,
+#mainFooterShortCopyright label{
+    font-weight: normal !important; 
+    float:left;
+}
 
 	.skinLight #mainFooterCopyright,
 	.skinLight #mainFooterShortCopyright {
@@ -445,6 +443,7 @@ ul li p {
     */
 	}
 
-	#mainFooterPowered {
-		background-image:url(../images/footerPoweredByIC.png);
-		}
+#mainFooterPowered {
+	background-image:url(../images/footerPoweredByIC.png);
+    margin-top: -15px;
+}

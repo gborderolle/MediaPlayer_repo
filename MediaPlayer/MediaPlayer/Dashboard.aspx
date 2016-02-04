@@ -44,10 +44,7 @@
     <link href="assets/css/globalplay.css" type="text/css" rel="stylesheet"/> 
 
    <script type="text/javascript">
-
-       // NOTE: IN VISUAL STUDIO USE 'VisualStudio JavaScript & CSS Outlining' EXTENSION (Compatible with all VS versions) TO IMPROVE JS CODE DISTRIBUTION
-       // SOURCE: http://jsoutlining.codeplex.com/
-
+      
        //#region Global Variables
 
        /**** Timeline global variables ****/
@@ -900,15 +897,25 @@
                    $('.popbox').popbox();
                    $("#txbComment").val("");
                    $("#txbComment").focus();
+
                    // Hide other popups
                    $(".box2.popbox2").hide();
-                   var date_str = moment(currentPointerPositionDate,
-                       "DD-MM-YYYY HH:mm:ss");
+                   var date_str = moment(currentPointerPositionDate, "DD-MM-YYYY HH:mm:ss");
                    $("#commentDate").val(date_str.format('DD-MM-YYYY HH:mm:ss'));
                    $(".jslider-pointer").css("left", "0%");
+
                    // Popup styles
                    $(".box.popbox").show("highlight", 700);
-                   $(".box.popbox").offset({ left: posXoff });
+
+                   var pop_w = parseInt($(".box.popbox").css("width"), 10);
+                   var arrow_w = parseInt($(".box.popbox .arrow").css("width"), 10);
+                   var btn_w = parseInt($("#btnAddComment").css("width"), 10);
+
+                   //$(".box.popbox").offset({ left: posXoff });
+                   $(".box.popbox").offset({ left: posXoff - pop_w + (btn_w / 2) + (arrow_w/2) });
+                   $(".box.popbox .arrow").css("left", (pop_w - arrow_w - 3) + "px");
+                   $(".box.popbox .arrow-border").css("left", (pop_w - arrow_w - 3) + "px");
+
                    $(".box.popbox").offset({ top: posYoff });
                    $('#btnAddComment').addClass("opened");
                } else {
@@ -3220,15 +3227,21 @@
 
                  // Hide other popups
                  $(".box.popbox").hide();
+
                  // Popup styles
                  $('.popbox2').popbox2();
                  $(".box2.popbox2").show("highlight", 700);
-                 $(".box2.popbox2").offset({
-                     left: posXoff
-                 });
-                 $(".box2.popbox2").offset({
-                     top: posYoff
-                 });
+
+                 var pop_w = parseInt($(".box2.popbox2").css("width"), 10);
+                 var arrow_w = parseInt($(".box2.popbox2 .arrow").css("width"), 10);
+                 var btn_w = parseInt($("#btnAddComment").css("width"), 10);
+
+                 //$(".box2.popbox2").offset({ left: posXoff });
+                 $(".box2.popbox2").offset({ left: posXoff - pop_w + (btn_w / 2) + (arrow_w / 2) });
+                 $(".box2.popbox2 .arrow").css("left", (pop_w - arrow_w - 3) + "px");
+                 $(".box2.popbox2 .arrow-border").css("left", (pop_w - arrow_w - 3) + "px");
+
+                 $(".box2.popbox2").offset({ top: posYoff });
                  $('#btnUploadElement').addClass("opened");
              } else {
                  $(".box2.popbox2").hide(200);
@@ -4079,15 +4092,14 @@ div.disabled,button.disabled,a.disabled {
 <asp:content id="Content1" ContentPlaceHolderID="ContentBody" runat="server">
   <form id="form1" runat="server" enctype="multipart/form-data">
    <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
-   <div style="width:100%;">
-      <div id="divMessages" role="alert" style="padding:6px;">
-      </div>
+   <div style="width:100%; padding-bottom: 20px;">
+      <div id="divMessages" role="alert" style="padding:6px;"></div>
       <div style="width:98%; min-height:360px; height:100%; margin: 0 auto;">
          <div class="row no-gutter" style="height:100%; min-height:600px; max-height:600px;">
 
             <!-- PANEL BÚSQUEDA -->
              <div id="divPanel_Busqueda" class="div-panel col-md-4 col-xs-12 img-rounded panel offset-2" style="max-height:600px; min-height:600px; border-radius: 13px;">
-               <h1 style="margin-top: 5px;"><span class="special-title label label-primary" style="font-weight: normal; z-index: 50;">Búsqueda</span>
+               <h1 style="margin-top: 5px;"><span class="special-title label label-primary" style="font-weight: normal; z-index: 50;">Búsqueda</span> 
                </h1>
                <div class="row" style="margin:3px; margin-top: 25px; min-height: 110px;">
                   
@@ -4224,16 +4236,17 @@ div.disabled,button.disabled,a.disabled {
                <span class="glyphicon glyphicon-transfer" aria-hidden="true"></span>
                </button>
 
-               <div class="row row-short" style="margin-top: 20px;">
+               <div class="row row-short" >
                   <label id="lblElementName" class="pull-left" style="margin-left:40px;">Video Player</label>
                </div>
                <div class="row row-short" style="margin-top:1%; display:block;" >
 
-                <!-- PLAYER - VIDEO -->
-                <div class="col-md-9" style="height:70%; width: 79%;">    
+                <!-- PLAYER VIDEO -->
+                <div class="col-md-9" style="width: 79%;">    
                     <div class="row">
 
-                        <div id="playerBox" class="img-rounded playerBox" style="min-height:400px; margin-left: 90px; border: solid 0.17em; background: linear-gradient(to bottom, #9EA7B1, #9EA7B1); position:relative;" runat="server">
+                        <!-- <div id="Div1" class="img-rounded playerBox" style="min-height:400px; margin-left: 90px; border: solid 0.17em; background: linear-gradient(to bottom, #9EA7B1, #9EA7B1); position:relative;" runat="server"> -->
+                        <div id="playerBox" class="img-rounded playerBox" style="min-height:440px; margin-left: 20px; border: solid 0.17em; background: linear-gradient(to bottom, #9EA7B1, #9EA7B1); position:relative;" runat="server">
 
                                 <div id="divPlayer_VIDEO" style="display:none;" class='photobox'> <!-- Contiene el Applet -->
 
@@ -4299,7 +4312,7 @@ div.disabled,button.disabled,a.disabled {
                             <div class="row row-short">
                                <label class="pull-left" style="margin-top:15px; margin-bottom:-3px; margin-left: 40px;">Audio Player</label>
                             </div>
-                           <div class="row row-short" style="margin-top:1%; margin-left: 90px;" >
+                           <div class="row row-short" style="margin-top:1%; margin-left: 20px;" >
                
                            <div id="audioContainer" class="row row-short" style="height:80px;">
 
@@ -4410,7 +4423,7 @@ div.disabled,button.disabled,a.disabled {
                      </div>
                      <br />
                      <div class="row row-short" style="margin-top: -10px;">
-                        <label id="lblAcciones" class="pull-left" style="">Acciones:</label>
+                        <label id="lblAcciones" class="pull-left" style="margin-bottom: -3px;">Acciones:</label>
                      </div>
                      <hr style="margin-top:4px;"/>
                      <div class="row row-short">
@@ -4502,15 +4515,14 @@ div.disabled,button.disabled,a.disabled {
                   </div>
                </div>
             </div>
+
              <div class='popbox2' style="margin-right: 6px; display: none;"> </div> <!-- popbox: Upload file -->
-                     
-                          
              <div class='box2 popbox2' style="width:300px; height: 300px;">
-                        <div class='arrow'></div>
-                        <div class='arrow-border'></div>
-                        <div class="row row-short" style="padding: 10px;">
-                           <label id="popbox2_title" class="label" style="font-size:100%; color:black;">Subir elemento al folio</label> 
-                        </div>
+                <div class='arrow'></div>
+                <div class='arrow-border'></div>
+                <div class="row row-short" style="padding: 10px;">
+                    <label id="popbox2_title" class="label" style="font-size:100%; color:black;">Subir elemento al folio</label> 
+                </div>
 
                  <div class="row row-short">
                      <ul id="nav_popbox2" class="nav nav-tabs">
@@ -4569,65 +4581,64 @@ div.disabled,button.disabled,a.disabled {
                      </div>
 
             <!-- PANEL TIMELINE -->
-            <div id="divTimeline" class="div-panel2 col-md-12 col-xs-12 img-rounded" style="height:100%; z-index:0;left: 0; border-radius: 13px;">
+            <div id="divTimeline" class="div-panel2 col-md-12 col-xs-12 img-rounded" style="height:100%; z-index:0;left: 0; border-radius: 13px; width: 101%; margin-left: -13px;">
                <h1 style="margin-top: 5px;"><span class="special-title label label-primary" style="font-weight: normal;">Timeline</span></h1>
-               
 
                 <div class="row" style="display:inline">
 
-    <div id="playerContainer" class="col-md-2 img-rounded" style="height: 140px; width:55px; margin-top:10px; background-color: #446e9b; background-image: linear-gradient(to bottom, rgba(255,255,255,0.125) 5%, rgba(255,255,255,0.125) 45%, rgba(255,255,255,0.15) 50%, rgba(0,0,0,0.1) 51%, rgba(0,0,0,0.1) 95%);">
-		<div id="controlContainer">
-			<ul class="controls">
-				<li>
-					<a href="#" class="left" data-attr="prevAudio"></a>
-				</li>
-				<li>
-					<a href="#" id="button_globalplay" class="play" data-attr="playPauseAudio" onclick="return initGlobalplay()"></a> <!-- pauseAudio -->
-				</li>
-				<li>
-					<a href="#" class="right" data-attr="nextAudio"></a>
-				</li>
-			</ul>
-		</div>
-	</div>
+                    <div id="playerContainer" class="col-md-2 img-rounded" style="height: 140px; width:55px; margin-top:10px; background-color: #446e9b; background-image: linear-gradient(to bottom, rgba(255,255,255,0.125) 5%, rgba(255,255,255,0.125) 45%, rgba(255,255,255,0.15) 50%, rgba(0,0,0,0.1) 51%, rgba(0,0,0,0.1) 95%);">
+		                <div id="controlContainer">
+			                <ul class="controls">
+				                <li>
+					                <a href="#" class="left" data-attr="prevAudio"></a>
+				                </li>
+				                <li>
+					                <a href="#" id="button_globalplay" class="play" data-attr="playPauseAudio" onclick="return initGlobalplay()"></a> <!-- pauseAudio -->
+				                </li>
+				                <li>
+					                <a href="#" class="right" data-attr="nextAudio"></a>
+				                </li>
+			                </ul>
+		                </div>
+	                </div>
 
-        <div id="divTimelineProgress" style="height:8px; position:absolute; margin-top: -5px;"></div> <!-- Contenedor draggable para el Progress Pointer -->
+                    <div id="divTimelineProgress" style="height:8px; position:absolute; margin-top: -5px;"></div> <!-- Contenedor draggable para el Progress Pointer -->
 
-        <div id="timeframe" class="col-md-10" style="width:94%; margin:auto; background:transparent; padding-left: 0;"></div>
-        <div id="sm2-inline-element" class="sm2-inline-element sm2-inline-status" style="position:absolute;">
-            <div id="sm2-progress" class="sm2-progress">
-            <div class="sm2-row">
-                <div id="sm2-progress-bd" class="sm2-progress-bd">
-                    <div id="sm2-progress-track" class="sm2-progress-track sm2-progress-track2">
-                        <div id="sm2-progress-bar"class="sm2-progress-bar sm2-progress-bar2"></div>
+                    <div id="timeframe" class="col-md-10" style="width:94%; margin:auto; background:transparent; padding-left: 0;"></div>
 
-                        <div id="sm2-progress-ball_TIMELINE"  class="sm2-progress-ball sm2-progress-ball2" style="display:none;">
-                        <div id="icon-overlay"class="icon-overlay icon-overlay2"></div>
-                        <img src="assets/images/pointer.png" style="width:20px; margin-top:-45px; margin-left:-5px;" />
+                    <div id="sm2-inline-element" class="sm2-inline-element sm2-inline-status" style="position:absolute;">
+                        <div id="sm2-progress" class="sm2-progress">
+                        <div class="sm2-row">
+                            <div id="sm2-progress-bd" class="sm2-progress-bd">
+                                <div id="sm2-progress-track" class="sm2-progress-track sm2-progress-track2">
+                                    <div id="sm2-progress-bar"class="sm2-progress-bar sm2-progress-bar2"></div>
 
-                            <div id="vertical-line-progress-left" style="width: 5px; height: 130px; border-right: 2px solid black; position: absolute; margin-top: -10px;/* margin-left: -4px; */border-bottom: 2px solid black;"></div>
-                            <div id="vertical-line-progress-right" style="width: 5px; height: 130px;border-left: 2px solid black; position: absolute; margin-top: -10px;margin-left: 3px;border-bottom: 2px solid black;"></div>
+                                    <div id="sm2-progress-ball_TIMELINE"  class="sm2-progress-ball sm2-progress-ball2" style="display:none;">
+                                    <div id="icon-overlay"class="icon-overlay icon-overlay2"></div>
+                                    <img src="assets/images/pointer.png" style="width:20px; margin-top:-45px; margin-left:-5px;" />
 
+                                        <div id="vertical-line-progress-left" style="width: 5px; height: 130px; border-right: 2px solid black; position: absolute; margin-top: -10px;/* margin-left: -4px; */border-bottom: 2px solid black;"></div>
+                                        <div id="vertical-line-progress-right" style="width: 5px; height: 130px;border-left: 2px solid black; position: absolute; margin-top: -10px;margin-left: 3px;border-bottom: 2px solid black;"></div>
+
+                                    </div>
+
+                                </div>
+                            </div>
                         </div>
-
+                        </div>
                     </div>
-                </div>
-            </div>
-            </div>
-        </div>
 
-        </div>
+                </div>
 
                 <!-- popbox: Runtime Timelapse -->
                 <div class='popbox4' style="margin-top:15px; margin-right: 6px; display: none;"> </div> 
-                     <div class='box4 popbox4' style="width:150px; height: 40px; opacity: 0.9; background-color: lightgrey;">
-                        <div class='arrow-down' style="opacity: 0.9;"></div>
-                        <div class='arrow-border-down'></div>
-                        <div class="row row-short" style="padding: 10px;">
-                           <label id="lblPopbox4" class="label" style="font-size:100%; color:black;"></label> 
-                        </div>
-                     </div>
-
+                <div class='box4 popbox4' style="width:150px; height: 40px; opacity: 0.9; background-color: lightgrey;">
+                <div class='arrow-down' style="opacity: 0.9;"></div>
+                <div class='arrow-border-down'></div>
+                <div class="row row-short" style="padding: 10px;">
+                    <label id="lblPopbox4" class="label" style="font-size:100%; color:black;"></label> 
+                </div>
+                </div>
 
             </div>
          </div>
@@ -4637,10 +4648,8 @@ div.disabled,button.disabled,a.disabled {
          </div>
       </div>
 
-      <a id="aDownloader" href="" download=""></a>
+    <a id="aDownloader" href="" download=""></a>
             
-   </div>
-
 <div id="dialog" title="Mensaje MediaPlayer">
   <p style="text-align: left;"></p>
 </div>

@@ -12,6 +12,7 @@ using System.Configuration;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.ServiceModel;
 using System.Text;
 using System.Web;
@@ -758,7 +759,7 @@ namespace MediaPlayer
                             {
                                 case "S":
                                     {
-                                        icon = "glyphicon glyphicon-play";
+                                        icon = "fa fa-video-camera";
                                         media_str = "Grabación";
                                         color_str = "blue";
                                         break;
@@ -951,10 +952,6 @@ namespace MediaPlayer
                 }
             }
             return media_str;
-        }
-
-        private static void GetDetails(FileInfo fi)
-        {
         }
 
         #endregion Static Methods
