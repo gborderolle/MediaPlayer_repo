@@ -4590,7 +4590,7 @@ div.disabled,button.disabled,a.disabled {
 
                 <div class="row" style="display:inline">
 
-    <div id="playerContainer" class="col-md-2" style="height: 140px; width:55px; margin-top:10px;">
+    <div id="playerContainer" class="col-md-2 img-rounded" style="height: 140px; width:55px; margin-top:10px; background-color: #446e9b; background-image: linear-gradient(to bottom, rgba(255,255,255,0.125) 5%, rgba(255,255,255,0.125) 45%, rgba(255,255,255,0.15) 50%, rgba(0,0,0,0.1) 51%, rgba(0,0,0,0.1) 95%);">
 		<div id="controlContainer">
 			<ul class="controls">
 				<li>
@@ -4606,31 +4606,30 @@ div.disabled,button.disabled,a.disabled {
 		</div>
 	</div>
 
-                <div id="divTimelineProgress" style="height:15px; position:absolute; margin-top: -5px;"></div> <!-- Contenedor draggable para el Progress Pointer -->
+        <div id="divTimelineProgress" style="height:15px; position:absolute; margin-top: -5px;"></div> <!-- Contenedor draggable para el Progress Pointer -->
 
+        <div id="timeframe" class="col-md-10" style="width:94%; margin:auto; background:transparent; padding-left: 0;"></div>
+        <div id="sm2-inline-element" class="sm2-inline-element sm2-inline-status" style="position:absolute;">
+            <div id="sm2-progress" class="sm2-progress">
+            <div class="sm2-row">
+                <div id="sm2-progress-bd" class="sm2-progress-bd">
+                    <div id="sm2-progress-track" class="sm2-progress-track sm2-progress-track2">
+                        <div id="sm2-progress-bar"class="sm2-progress-bar sm2-progress-bar2"></div>
 
-                  <div id="timeframe" class="col-md-10" style="width:94%; margin:auto; background:transparent;"></div>
-                  <div id="sm2-inline-element" class="sm2-inline-element sm2-inline-status" style="position:absolute;">
-                     <div id="sm2-progress" class="sm2-progress">
-                        <div class="sm2-row">
-                           <div id="sm2-progress-bd" class="sm2-progress-bd">
-                              <div id="sm2-progress-track" class="sm2-progress-track sm2-progress-track2">
-                                 <div id="sm2-progress-bar"class="sm2-progress-bar sm2-progress-bar2"></div>
+                        <div id="sm2-progress-ball_TIMELINE"  class="sm2-progress-ball sm2-progress-ball2" style="display:none;">
+                        <div id="icon-overlay"class="icon-overlay icon-overlay2"></div>
+                        <img src="assets/images/pointer.png" style="width:20px; margin-top:-45px; margin-left:-5px;" />
 
-                                 <div id="sm2-progress-ball_TIMELINE"  class="sm2-progress-ball sm2-progress-ball2" style="display:none;">
-                                    <div id="icon-overlay"class="icon-overlay icon-overlay2"></div>
-                                    <img src="assets/images/pointer.png" style="width:20px; margin-top:-45px; margin-left:-5px;" />
+                            <div id="vertical-line-progress-left" style="width: 5px; height: 130px; border-right: 2px solid black; position: absolute; margin-top: -10px;/* margin-left: -4px; */border-bottom: 2px solid black;"></div>
+                            <div id="vertical-line-progress-right" style="width: 5px; height: 130px;border-left: 2px solid black; position: absolute; margin-top: -10px;margin-left: 3px;border-bottom: 2px solid black;"></div>
 
-                                     <div id="vertical-line-progress-left" style="width: 5px; height: 130px; border-right: 2px solid black; position: absolute; margin-top: -10px;/* margin-left: -4px; */border-bottom: 2px solid black;"></div>
-                                     <div id="vertical-line-progress-right" style="width: 5px; height: 130px;border-left: 2px solid black; position: absolute; margin-top: -10px;margin-left: 3px;border-bottom: 2px solid black;"></div>
-
-                                 </div>
-
-                              </div>
-                           </div>
                         </div>
-                     </div>
-                  </div>
+
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
 
         </div>
 
