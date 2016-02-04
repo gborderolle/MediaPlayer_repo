@@ -29,3 +29,5 @@ Image:
 
 3] Grid results refreshes every 5 minutes
 
+4] NOTE: IN VISUAL STUDIO USE 'VisualStudio JavaScript & CSS Outlining' EXTENSION (Compatible with all VS versions) TO IMPROVE JS CODE DISTRIBUTION IN REGIONS
+SOURCE: http://jsoutlining.codeplex.com/

@@ -32,9 +32,6 @@
 
     <!-- Styles -->
 
-    <link href="theme-2.css" type="text/css" rel="stylesheet"/> 
-
-
     <link href="assets/css/datetimepicker.css" type="text/css" rel="stylesheet"/>
     <link href="assets/css/jquery.photobox.css" type="text/css" rel="stylesheet"/> 
     <link href="assets/css/timeline-styles.css" rel="stylesheet" />
@@ -44,6 +41,7 @@
     <link href="assets/css/qtip.css" rel="stylesheet" />
     <link href="assets/css/highlight.css" rel="stylesheet" />
     <link href="assets/css/jslider.css" rel="stylesheet" />
+    <link href="assets/css/globalplay.css" type="text/css" rel="stylesheet"/> 
 
    <script type="text/javascript">
 
@@ -260,6 +258,7 @@
                            }
                        }
                    } //for
+
                    // Append role elements to original elements
                    var allTags = [];
                    allTags.push.apply(allTags, _TL_DATA.spans);
@@ -457,7 +456,8 @@
            pointer_timeline.css("top", "5px");
            $('.popbox4').popbox4();
 
-           // Drag and Drop effect
+           // Event Drag & Drop ********
+
            // Source: http://www.elated.com/articles/drag-and-drop-with-jquery-your-essential-guide/
            if (pointer_timeline != null) {
                pointer_timeline.draggable({
@@ -480,6 +480,42 @@
                 })
            }
        });
+
+       // Event Drag & Drop: DragStop
+       function handleDragStop(event, ui) {
+           var posX = ui.offset.left - $("#svg_timeframe").offset().left;
+           var date = window.timeframe_live.getTickDate(posX); // Datetime position - Formato: AÑO DIA MES
+           if (date != null) {
+               var date_str = moment(date, "YYYY-MM-DD HH:mm:ss");
+               currentPointerPositionDate = date_str.format(
+                   'DD-MM-YYYY HH:mm:ss');
+               $("#commentDate").val(date_str.format('DD-MM-YYYY HH:mm:ss'));
+               $("input[id*='uploadDate']").val(date_str.format(
+                   'DD-MM-YYYY HH:mm:ss'));
+           }
+       }
+
+       // Event Drag & Drop: Dragging
+       function handleDragging(event, ui) {
+           var posX = ui.offset.left - $("#svg_timeframe").offset().left;
+           var posY = ui.offset.top;
+           var posXfinal = posX + 80; // + 13
+           var posYfinal = posY - 78;
+           var pop4_width = parseInt($(".box4.popbox4").css("width"), 10);
+           if (posXfinal + pop4_width > $(window).width()) {
+               posXfinal = $(window).width() - pop4_width;
+           }
+           $(".box4.popbox4").show("scale", 300);
+           $(".box4.popbox4").offset({
+               left: posXfinal,
+               top: posYfinal
+           });
+           var date = window.timeframe_live.getTickDate(posX); // Datetime position - Formato: AÑO DIA MES
+           if (date != null) {
+               var date_str = moment(date, "YYYY-MM-DD HH:mm:ss");
+               $("#lblPopbox4").text(date_str.format('DD-MM-YYYY HH:mm:ss'));
+           }
+       }
 
        // END On Ready
 
@@ -614,70 +650,7 @@
 
        }
 
-       function initGlobalplay() {
-
-           if ($("#button_globalplay").hasClass("play")) {
-
-               $("#button_globalplay").removeClass("play");
-               $("#button_globalplay").addClass("pauseAudio");
-               startGlobalplay();
-           } else {
-
-               $("#button_globalplay").removeClass("pauseAudio");
-               $("#button_globalplay").addClass("play");
-               abortGlobalplay();
-           }
-           return false;
-       }
-
-       var timer_globalplay;
-       function startGlobalplay() {
-           console.log("initGlobalplay");
-
-           var w = $("#divTimelineProgress").css("width");
-           $("#sm2-progress-track").css("width", w);
-
-           timer_globalplay = setInterval(whilePlayingGlobalplay, 1000);
-       }
-
-       var timer = 0;
-       function whilePlayingGlobalplay() {
-           var progressMaxLeft = 100;
-           var left_current = parseInt($("#sm2-progress-ball_TIMELINE").css("left"), 10);
-
-           timer = timer + 2;
-           //var left_final = Math.min(progressMaxLeft, Math.max(0, (progressMaxLeft * (timer / 500)))) + '%';
-           var left_final = progressMaxLeft * (timer / 500) + '%';
-           console.log(left_final);
-
-           $("#sm2-progress-ball_TIMELINE").css("left", left_final);
-       }
-
-       function abortGlobalplay() { 
-           clearInterval(timer_globalplay);
-       }
-
-
-       function handleDragging(event, ui) {
-           var posX = ui.offset.left - $("#svg_timeframe").offset().left;
-           var posY = ui.offset.top;
-           var posXfinal = posX + 80; // + 13
-           var posYfinal = posY - 78;
-           var pop4_width = parseInt($(".box4.popbox4").css("width"), 10);
-           if (posXfinal + pop4_width > $(window).width()) {
-               posXfinal = $(window).width() - pop4_width;
-           }
-           $(".box4.popbox4").show("scale", 300);
-           $(".box4.popbox4").offset({
-               left: posXfinal,
-               top: posYfinal
-           });
-           var date = window.timeframe_live.getTickDate(posX); // Datetime position - Formato: AÑO DIA MES
-           if (date != null) {
-               var date_str = moment(date, "YYYY-MM-DD HH:mm:ss");
-               $("#lblPopbox4").text(date_str.format('DD-MM-YYYY HH:mm:ss'));
-           }
-       }
+       
 
        function getFormattedDate(date) {
            var day = date.getDate();
@@ -3275,8 +3248,9 @@
      }
 
      //#endregion 
-     //#region JS Methods 6: showHideLeftPanel | callback1 | callback2 | callback3 | getElementsInMemory | getElementInMemoryByID | getElementInMemoryByTimeRange | splitWhiteSpaces | writeLog | load_js | showAlertMessage | getMediaTypeName | myIP 
+     //#region JS Methods 6: showHideLeftPanel | callback1 | callback2 | callback3 | getElementsInMemory | getElementInMemoryByID | getElementInMemoryByTimeRange    
 
+       // Shows or hides left panel Busqueda
      function showHideLeftPanel() {
          var divPanel_Busqueda = $('#divPanel_Busqueda');
          var divPanel_PlayerControl = $("#divPanel_PlayerControl");
@@ -3449,6 +3423,7 @@
          }
      }
 
+       // Show if it is Firefox or IE (10 and 11) browser
      function getIsFirefoxOrIE() {
          var msie = -1;
          var ua = navigator.userAgent.toLowerCase();
@@ -3458,14 +3433,15 @@
          return (ua.indexOf('firefox') > -1 || msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./));
      }
 
+     // Show if it is IE (10 and 11) browser
      function getIsIE() {
          var ua = navigator.userAgent.toLowerCase();
-         var msie = ua.indexOf("MSIE ");
+         var msie = ua.toLowerCase().indexOf("msie ");
 
          return (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./));
      }
-     // convert milliseconds to HH:mm:ss, return as object literal or string
 
+     // convert milliseconds to HH:mm:ss, return as object literal or string
      function getTime(msec, useString) {
          var nSec = Math.floor(msec / 1000),
              hh = Math.floor(nSec / 3600),
@@ -3477,21 +3453,7 @@
                  'min': min,
                  'sec': sec
              });
-     }
-
-     function handleDragStop(event, ui) {
-         var posX = ui.offset.left - $("#svg_timeframe").offset().left;
-         var date = window.timeframe_live.getTickDate(posX); // Datetime position - Formato: AÑO DIA MES
-         if (date != null) {
-             var date_str = moment(date, "YYYY-MM-DD HH:mm:ss");
-             currentPointerPositionDate = date_str.format(
-                 'DD-MM-YYYY HH:mm:ss');
-             $("#commentDate").val(date_str.format('DD-MM-YYYY HH:mm:ss'));
-             $("input[id*='uploadDate']").val(date_str.format(
-                 'DD-MM-YYYY HH:mm:ss'));
-         }
-
-     }
+     }    
 
        // Load elements from folio selected - Get data from server
      function getElementsInMemory() {
@@ -3619,87 +3581,14 @@
          }
      }
 
-     function splitWhiteSpaces(text) {
-         text = text.split(" ");
-         var stringArray = new Array();
-         for (var i = 0; i < text.length; i++) {
-             stringArray.push(text[i]);
-             if (i != text.length - 1) {
-                 stringArray.push(" ");
-             }
-         }
-         return stringArray;
-     }
-     /**** Reloads a js script ****/
 
-     function load_js() {
-         var head = document.getElementsByTagName('head')[0];
-         var script = document.createElement('script');
-         script.type = 'text/javascript';
-         script.src = 'assets/js/soundmanager2.js';
-         var script1 = document.createElement('script');
-         script1.type = 'text/javascript';
-         script1.src = 'assets/js/bar-ui.js';
-         head.appendChild(script1);
-     }     
-
-     function getMediaTypeName(tapeType) {
-         var tapeType_str = "Grab";
-         switch (tapeType) {
-             case "S":
-                 {
-                     tapeType_str = "Grab";
-                     break;
-                 }
-             case "V":
-                 {
-                     tapeType_str = "Vid";
-                     break;
-                 }
-             case "A":
-                 {
-                     tapeType_str = "Aud";
-                     break;
-                 }
-             case "D":
-                 {
-                     tapeType_str = "Doc";
-                     break;
-                 }
-             case "C":
-                 {
-                     tapeType_str = "Com";
-                     break;
-                 }
-             case "I":
-                 {
-                     tapeType_str = "Im";
-                     break;
-                 }
-         }
-         return tapeType_str;
-     }
-
-     function myIP() {
-         if (window.XMLHttpRequest) xmlhttp = new XMLHttpRequest();
-         else xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-         xmlhttp.open("GET", "http://api.hostip.info/get_html.php", false);
-         xmlhttp.send();
-         hostipInfo = xmlhttp.responseText.split("\n");
-         for (i = 0; hostipInfo.length >= i; i++) {
-             ipAddress = hostipInfo[i].split(":");
-             if (ipAddress[0] == "IP") return ipAddress[1];
-         }
-         return false;
-     }
-
+       // Hidden Field hdnIsUpdateNeeded: alerts if is needed a data refresh from code behind
+       // A: Normal file upload
      function prepareFileUpload_a(e) {
          var _hdnIsUpdateNeeded = $("input[id*='_hdnIsUpdateNeeded']");
          if (_hdnIsUpdateNeeded != null) {
              _hdnIsUpdateNeeded.val("true");
          }
-
-         //alert("upload: " + $("input[id*='uploadDate']").val()); // Quitar
 
          var MyFileUpload = $("input[id*='MyFileUpload']");
          if (MyFileUpload != null && (MyFileUpload.val() == null || MyFileUpload.val().length == 0)) {
@@ -3716,6 +3605,7 @@
          }
      }
 
+     // B: Camera system upload
      function prepareFileUpload_b(e) {
          var _hdnIsUpdateNeeded = $("input[id*='_hdnIsUpdateNeeded']");
          if (_hdnIsUpdateNeeded != null) {
@@ -3863,6 +3753,54 @@
          __doPostBack('<%=btnSearchCandidate.UniqueID%>', "");
      }
  }
+
+       /******** START: Media Player 2.0: Nuevo Requerimiento: Play global ********/
+
+       function initGlobalplay() {
+
+           if ($("#button_globalplay").hasClass("play")) {
+
+               $("#button_globalplay").removeClass("play");
+               $("#button_globalplay").addClass("pauseAudio");
+               startGlobalplay();
+           } else {
+
+               $("#button_globalplay").removeClass("pauseAudio");
+               $("#button_globalplay").addClass("play");
+               abortGlobalplay();
+           }
+           return false;
+       }
+
+       var timer_globalplay;
+       function startGlobalplay() {
+           console.log("initGlobalplay");
+
+           var w = $("#divTimelineProgress").css("width");
+           $("#sm2-progress-track").css("width", w);
+
+           timer_globalplay = setInterval(whilePlayingGlobalplay, 1000);
+       }
+
+       var timer = 0;
+       function whilePlayingGlobalplay() {
+           var progressMaxLeft = 100;
+           var left_current = parseInt($("#sm2-progress-ball_TIMELINE").css("left"), 10);
+
+           timer = timer + 2;
+           //var left_final = Math.min(progressMaxLeft, Math.max(0, (progressMaxLeft * (timer / 500)))) + '%';
+           var left_final = progressMaxLeft * (timer / 500) + '%';
+           console.log(left_final);
+
+           $("#sm2-progress-ball_TIMELINE").css("left", left_final);
+       }
+
+       function abortGlobalplay() {
+           clearInterval(timer_globalplay);
+       }
+
+       /******** END: Media Player 2.0: Nuevo Requerimiento: Play global ********/
+
 
    </script>
    <style>

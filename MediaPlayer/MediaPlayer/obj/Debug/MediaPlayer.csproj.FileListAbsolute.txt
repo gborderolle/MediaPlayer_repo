@@ -23,3 +23,4 @@ C:\Projects\MediaPlayer_repo\MediaPlayer\MediaPlayer\bin\NAudio.xml
 C:\Projects\MediaPlayer_repo\MediaPlayer\MediaPlayer\obj\Debug\MediaPlayer.dll
 C:\Projects\MediaPlayer_repo\MediaPlayer\MediaPlayer\obj\Debug\MediaPlayer.pdb
 C:\Projects\MediaPlayer_repo\MediaPlayer\MediaPlayer\bin\MediaPlayer.dll.config
+C:\Projects\MediaPlayer_repo\MediaPlayer\MediaPlayer\obj\Debug\MediaPlayer.csprojResolveAssemblyReference.cache
