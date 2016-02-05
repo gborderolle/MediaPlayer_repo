@@ -20,6 +20,8 @@
     <script src="assets/js/jquery.slider.js"></script>
     <script src="assets/js/jquery.ba-dotimeout.js"></script>
     <script src="assets/js/webchimera.js" type="text/javascript"></script>  
+    <script src="assets/js/timer.jquery.js"></script>
+    <script src="ExternalResources/Alert_Messages.js"></script>
     
     <script src="assets/js/inputmask.js"></script>
     <script src="assets/js/jquery.inputmask.js"></script>
@@ -28,10 +30,8 @@
     <script src="assets/js/inputmask.extensions.js"></script>
     <script src="assets/js/jquery.inputmask.bundle.js"></script>
     <script src="assets/js/jquery.maskedinput.js"></script>
-    <script src="ExternalResources/Alert_Messages.js"></script>
 
     <!-- Styles -->
-
     <link href="assets/css/datetimepicker.css" type="text/css" rel="stylesheet"/>
     <link href="assets/css/jquery.photobox.css" type="text/css" rel="stylesheet"/> 
     <link href="assets/css/timeline-styles.css" rel="stylesheet" />
@@ -74,6 +74,9 @@
        // Get screen resolution
        var MONITOR_WIDTH = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
        var MONITOR_HEIGHT = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+
+       // GLOBAL PLAY variables
+       var GLOBALPLAY_total_seconds = 0;
 
        /**** Extras variables ****/
 
@@ -369,8 +372,6 @@
                                        }
                                    }
                                });
-
-
                            },
                            Cancel: function () {
                                $(this).dialog("close");
@@ -466,6 +467,7 @@
                    drag: handleDragging
                });
            }
+
            // Set main line real width 
            var MAIN_LINE = $("#timeframe > svg > g:first > line:first");
            if (MAIN_LINE != null && MAIN_LINE.length) {
@@ -476,7 +478,31 @@
                    left: $("#timeframe > svg").offset().left + 42 //Fix Left Offset 
                 })
            }
-       });
+
+
+           // ************* Globalplay Timer settings *************
+
+           var date_str1 = moment(_TL_STARTDATE, "DD-MM-YYYY HH:mm:ss");
+           var date_str2 = moment(_TL_ENDDATE, "DD-MM-YYYY HH:mm:ss");
+
+           var date1 = new Date(date_str1);
+           var date2 = new Date(date_str2);
+
+           var dif = date2.getTime() - date1.getTime();
+
+           var Seconds_from_T1_to_T2 = dif / 1000;
+           var Seconds_Between_Dates = Math.abs(Seconds_from_T1_to_T2);
+
+           GLOBALPLAY_total_seconds = Seconds_Between_Dates;
+
+           // Get duration format: H:mm:ss
+           var total_sec_format = moment("2015-01-01").startOf('day').seconds(Seconds_Between_Dates).format('HH:mm:ss');
+
+           $("#lblGlobalplay_timer_total").text(total_sec_format);
+
+       }); // END On Ready
+
+       
 
        // Event Drag & Drop: DragStop
        function handleDragStop(event, ui) {
@@ -484,11 +510,9 @@
            var date = window.timeframe_live.getTickDate(posX); // Datetime position - Formato: AÑO DIA MES
            if (date != null) {
                var date_str = moment(date, "YYYY-MM-DD HH:mm:ss");
-               currentPointerPositionDate = date_str.format(
-                   'DD-MM-YYYY HH:mm:ss');
+               currentPointerPositionDate = date_str.format('DD-MM-YYYY HH:mm:ss');
                $("#commentDate").val(date_str.format('DD-MM-YYYY HH:mm:ss'));
-               $("input[id*='uploadDate']").val(date_str.format(
-                   'DD-MM-YYYY HH:mm:ss'));
+               $("input[id*='uploadDate']").val(date_str.format('DD-MM-YYYY HH:mm:ss'));
            }
        }
 
@@ -514,7 +538,6 @@
            }
        }
 
-       // END On Ready
 
        // Load Alert messages default values
        function LoadAlertMessagesBackup() {
@@ -2073,16 +2096,20 @@
 
      // Set isPlaying false to all elements
          setAllElementsInMemoryNotPlaying();
+
      // Remove previous info
          removeDivPlayer();
+
      // Load global timestamp to use in comment popup
          comment_popup_timestamp = timestamp;
+
      // Right side element details --------------------
          var lblType = type_longStr === "Grabación" ? "Grabación de pantalla" : type_longStr;
 
          $("#lblType").val(lblType);
          $("#lblName").val(fileName);
          $("#lblTimestamp").val(timestamp);
+
          var duration_str = duration;
          if (duration == 0) {
              duration_formatStr = "No tiene";
@@ -2794,6 +2821,7 @@
      function setVideoLength(duration) {
 
          // Set Video length
+         // Get duration format: H:mm:ss
          var length = moment("2015-01-01").startOf('day').seconds(duration).format('H:mm:ss');
          var duration_VIDEO = $("#sm2-inline-duration_VIDEO");
          if (duration_VIDEO != null && duration_VIDEO.length > 0) {
@@ -3772,12 +3800,10 @@
        function initGlobalplay() {
 
            if ($("#button_globalplay").hasClass("play")) {
-
                $("#button_globalplay").removeClass("play");
                $("#button_globalplay").addClass("pauseAudio");
                startGlobalplay();
            } else {
-
                $("#button_globalplay").removeClass("pauseAudio");
                $("#button_globalplay").addClass("play");
                abortGlobalplay();
@@ -3786,12 +3812,19 @@
        }
 
        var timer_globalplay;
+
        function startGlobalplay() {
            console.log("initGlobalplay");
 
            var w = $("#divTimelineProgress").css("width");
            $("#sm2-progress-track").css("width", w);
 
+           // Start timer
+           $('#lblGlobalplay_timer_current').timer({
+               format: '%H:%M:%S'  
+            });
+
+           // Init event while playing
            timer_globalplay = setInterval(whilePlayingGlobalplay, 1000);
        }
 
@@ -4582,7 +4615,13 @@ div.disabled,button.disabled,a.disabled {
 
             <!-- PANEL TIMELINE -->
             <div id="divTimeline" class="div-panel2 col-md-12 col-xs-12 img-rounded" style="height:100%; z-index:0;left: 0; border-radius: 13px; width: 101%; margin-left: -13px;">
-               <h1 style="margin-top: 5px;"><span class="special-title label label-primary" style="font-weight: normal;">Timeline</span></h1>
+               <h1 style="margin-top: 5px;">
+
+                    <label id="lblGlobalplay_timer_current" class="label" style="font-size:100%; color:black;">00:00:00</label> / <label id="lblGlobalplay_timer_total" class="label" style="font-size:100%; color:black;">00:00:00</label>
+                   
+
+                   <span class="special-title label label-primary" style="font-weight: normal;">Timeline</span>
+               </h1>
 
                 <div class="row" style="display:inline">
 
