@@ -76,7 +76,8 @@
        var MONITOR_HEIGHT = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
 
        // GLOBAL PLAY variables
-       var GLOBALPLAY_total_seconds = 0;
+       var GLOBALPLAY_seconds_current = 0;
+       var GLOBALPLAY_seconds_total = 0;
 
        /**** Extras variables ****/
 
@@ -493,10 +494,10 @@
            var Seconds_from_T1_to_T2 = dif / 1000;
            var Seconds_Between_Dates = Math.abs(Seconds_from_T1_to_T2);
 
-           GLOBALPLAY_total_seconds = Seconds_Between_Dates;
+           GLOBALPLAY_seconds_total = Seconds_Between_Dates;
 
-           // Get duration format: H:mm:ss
-           var total_sec_format = moment("2015-01-01").startOf('day').seconds(Seconds_Between_Dates).format('HH:mm:ss');
+           // Get duration format: HH:mm:ss
+           var total_sec_format = getFormatDuration(Seconds_Between_Dates); 
 
            $("#lblGlobalplay_timer_total").text(total_sec_format);
 
@@ -504,7 +505,7 @@
 
        
 
-       // Event Drag & Drop: DragStop
+       // Event Drag & Drop: Stop Dragging
        function handleDragStop(event, ui) {
            var posX = ui.offset.left - $("#svg_timeframe").offset().left;
            var date = window.timeframe_live.getTickDate(posX); // Datetime position - Formato: AÑO DIA MES
@@ -514,6 +515,34 @@
                $("#commentDate").val(date_str.format('DD-MM-YYYY HH:mm:ss'));
                $("input[id*='uploadDate']").val(date_str.format('DD-MM-YYYY HH:mm:ss'));
            }
+
+
+           // ******** Globalplay ********
+
+           // Set current timer
+
+           var date_str1 = moment(_TL_STARTDATE, "DD-MM-YYYY HH:mm:ss");
+
+           var date1 = new Date(date);
+           var date2 = new Date(date_str1);
+
+           var dif = date2.getTime() - date1.getTime();
+
+           var Seconds_from_T1_to_T2 = dif / 1000;
+           var Seconds_Between_Dates = Math.abs(Seconds_from_T1_to_T2);
+
+           GLOBALPLAY_seconds_current = Seconds_Between_Dates;
+
+           $('#lblGlobalplay_timer_current').timer('remove');
+           $('#lblGlobalplay_timer_current').timer({
+               seconds: Seconds_Between_Dates
+           });
+
+           console.log("Seconds_Between_Dates: " + Seconds_Between_Dates);
+
+           // Resume timer
+           //$('#lblGlobalplay_timer_current').timer('resume');
+           startGlobalplay();
        }
 
        // Event Drag & Drop: Dragging
@@ -536,6 +565,13 @@
                var date_str = moment(date, "YYYY-MM-DD HH:mm:ss");
                $("#lblPopbox4").text(date_str.format('DD-MM-YYYY HH:mm:ss'));
            }
+
+           // ******** Globalplay ********
+
+           // Stop timer 
+
+           $('#lblGlobalplay_timer_current').timer('pause');
+           abortGlobalplay();
        }
 
 
@@ -2821,8 +2857,9 @@
      function setVideoLength(duration) {
 
          // Set Video length
-         // Get duration format: H:mm:ss
-         var length = moment("2015-01-01").startOf('day').seconds(duration).format('H:mm:ss');
+         // Get duration format: HH:mm:ss
+         var length = getFormatDuration(duration); 
+
          var duration_VIDEO = $("#sm2-inline-duration_VIDEO");
          if (duration_VIDEO != null && duration_VIDEO.length > 0) {
              duration_VIDEO.text(length.toString());
@@ -3418,6 +3455,11 @@
      }
      /******** Auxiliar Functions ********/
    
+       // Get duration format: HH:mm:ss
+       function getFormatDuration(duration) {
+           return moment("2015-01-01").startOf('day').seconds(duration).format('HH:mm:ss');
+       }
+
        // Get file extension
      function getFileExtension(fileName) {
          return (/[.]/.exec(fileName)) ? /[^.]+$/.exec(fileName) : undefined;
@@ -3802,10 +3844,21 @@
            if ($("#button_globalplay").hasClass("play")) {
                $("#button_globalplay").removeClass("play");
                $("#button_globalplay").addClass("pauseAudio");
+
+               // Start timer
+               $('#lblGlobalplay_timer_current').timer({
+                   format: '%H:%M:%S'
+               });
+
                startGlobalplay();
+
            } else {
                $("#button_globalplay").removeClass("pauseAudio");
                $("#button_globalplay").addClass("play");
+
+               // Stop timer
+               $('#lblGlobalplay_timer_current').timer('pause');
+
                abortGlobalplay();
            }
            return false;
@@ -3817,12 +3870,9 @@
            console.log("initGlobalplay");
 
            var w = $("#divTimelineProgress").css("width");
-           $("#sm2-progress-track").css("width", w);
+           $("#sm2-progress-track").css("width", w);           
 
-           // Start timer
-           $('#lblGlobalplay_timer_current').timer({
-               format: '%H:%M:%S'  
-            });
+           // Timer Source: http://jquerytimer.com/
 
            // Init event while playing
            timer_globalplay = setInterval(whilePlayingGlobalplay, 1000);
@@ -3831,14 +3881,45 @@
        var timer = 0;
        function whilePlayingGlobalplay() {
            var progressMaxLeft = 100;
-           var left_current = parseInt($("#sm2-progress-ball_TIMELINE").css("left"), 10);
 
-           timer = timer + 2;
-           //var left_final = Math.min(progressMaxLeft, Math.max(0, (progressMaxLeft * (timer / 500)))) + '%';
-           var left_final = progressMaxLeft * (timer / 500) + '%';
-           console.log(left_final);
+           // REAL TIMER MODE
 
-           $("#sm2-progress-ball_TIMELINE").css("left", left_final);
+           GLOBALPLAY_seconds_current = $('#lblGlobalplay_timer_current').data('seconds');
+
+           var progress_percentage = GLOBALPLAY_seconds_current * 100 / GLOBALPLAY_seconds_total;
+           var left_final_percentage = progress_percentage + '%';
+
+           console.log("GLOBALPLAY_seconds_current: " + GLOBALPLAY_seconds_current);
+           console.log("progress_percentage: " + progress_percentage);
+
+           $("#sm2-progress-ball_TIMELINE").css("left", left_final_percentage);
+
+           // RELATIVE TIMER MODE
+
+           /*
+           timer++;
+           var left_final_int = Math.min(progressMaxLeft, Math.max(0, (progressMaxLeft * (timer / 500))));
+           if (left_final_int == 100) {
+               abortGlobalplay();
+           }
+           var left_final_percentage = left_final_int + '%';
+           
+           // ******* Update current timer regarding Pointer position *******
+
+           //var left_final_percentage = left_final_percentage;
+           var left_final_int = parseFloat(left_final_percentage);
+           var progress_seg = left_final_int * GLOBALPLAY_seconds_total / 100;
+
+           console.log("left_final_percentage: " + left_final_percentage);
+           console.log("left_final_int: " + left_final_int);
+           console.log("progress_seg: " + progress_seg);
+
+           // Get duration format: HH:mm:ss
+           var total_sec_format = getFormatDuration(progress_seg);
+
+           $('#lblGlobalplay_timer_current').text(total_sec_format);
+
+           */
        }
 
        function abortGlobalplay() {

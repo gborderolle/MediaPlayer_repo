@@ -147,6 +147,7 @@
     <Content Include="assets\js\jquery.slider.js" />
     <Content Include="assets\js\jshashtable-2.1_src.js" />
     <Content Include="assets\js\loginForm_common.8e02390dee35ca97.js" />
+    <Content Include="assets\js\moment-duration-format.js" />
     <Content Include="assets\js\moment.js" />
     <Content Include="assets\js\npm.js" />
     <Content Include="assets\js\popbox.js" />
@@ -158,6 +159,7 @@
     <Content Include="assets\js\soundmanager2.js" />
     <Content Include="assets\js\timeframe.js" />
     <Content Include="assets\js\timepicker.js" />
+    <Content Include="assets\js\timer.jquery.js" />
     <Content Include="assets\js\tmpl.js" />
     <Content Include="assets\js\webchimera.js" />
     <Content Include="assets\libraries\Microsoft.WindowsAPICodePack.dll" />
@@ -306,6 +308,7 @@
           <DevelopmentServerPort>2055</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://gborderolle:7070/</IISUrl>
+          <!--<IISUrl>http://localhost/</IISUrl>-->
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
