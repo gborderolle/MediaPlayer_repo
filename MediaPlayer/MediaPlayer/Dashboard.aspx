@@ -67,6 +67,7 @@
        var comment_popup_timestamp = "";
        var initial_size = 0;
        var elementsInMemory = [];
+       var stack_elements = [[], []];
        var selectedElementID = 0;
        var currrentVideoDuration = 0;
        var currentPointerPositionDate;
@@ -539,9 +540,6 @@
            });
 
            console.log("Seconds_Between_Dates: " + Seconds_Between_Dates);
-
-           // Resume timer
-           //$('#lblGlobalplay_timer_current').timer('resume');
            startGlobalplay();
        }
 
@@ -549,7 +547,7 @@
        function handleDragging(event, ui) {
            var posX = ui.offset.left - $("#svg_timeframe").offset().left;
            var posY = ui.offset.top;
-           var posXfinal = posX + 80; // + 13
+           var posXfinal = posX + 80; 
            var posYfinal = posY - 78;
            var pop4_width = parseInt($(".box4.popbox4").css("width"), 10);
            if (posXfinal + pop4_width > $(window).width()) {
@@ -570,7 +568,6 @@
 
            // Stop timer 
 
-           $('#lblGlobalplay_timer_current').timer('pause');
            abortGlobalplay();
        }
 
@@ -3544,7 +3541,10 @@
          if (hdnElements != null && hdnElements.length) {
              var tapes_array = hdnElements.split("$"); // Elements
              if (tapes_array.length > 0) {
+
                  elementsInMemory = [];
+                 stack_elements = [[], []];
+
                  for (var i = 0; i < tapes_array.length; i++) {
                      if (tapes_array[i] != null) {
                          var tape_values = tapes_array[i].split("#"); // Element attributes
@@ -3578,6 +3578,11 @@
                                  fileStatus: fileStatus
                              };
                              elementsInMemory.push(element);
+
+                             var array = new Array();
+                             array[0] = element;
+                             array[1] = false;
+                             stack_elements.push(array);
                          }
                      }
                  }
@@ -3634,7 +3639,7 @@
          }
      }
 
-       // Only visible elements in timeline and not of the same media type
+     // Only visible elements in timeline and not of the same media type
      function getElementInMemoryByTimeRange_onlyVisibleInTimeline(originalID, timeStart, timeCurrent) {
          if (elementsInMemory != null && elementsInMemory.length > 0) {
 
@@ -3664,6 +3669,7 @@
          }
      }
 
+    
 
        // Hidden Field hdnIsUpdateNeeded: alerts if is needed a data refresh from code behind
        // A: Normal file upload
@@ -3839,16 +3845,24 @@
 
        /******** START: Media Player 2.0: Nuevo Requerimiento: Play global ********/
 
+       // stack_elements [object, taken: bool]
+
        function initGlobalplay() {
 
            if ($("#button_globalplay").hasClass("play")) {
                $("#button_globalplay").removeClass("play");
                $("#button_globalplay").addClass("pauseAudio");
 
-               // Start timer
-               $('#lblGlobalplay_timer_current').timer({
-                   format: '%H:%M:%S'
-               });
+                // Start timer
+               if (GLOBALPLAY_seconds_current == 0) {
+                   $('#lblGlobalplay_timer_current').timer({
+                       format: '%H:%M:%S'
+                   });
+               }
+               else {
+                   // Resume timer
+                   $('#lblGlobalplay_timer_current').timer('resume');
+               }
 
                startGlobalplay();
 
@@ -3864,10 +3878,10 @@
            return false;
        }
 
-       var timer_globalplay;
+       var timer_globalplay; 
 
        function startGlobalplay() {
-           console.log("initGlobalplay");
+           //console.log("initGlobalplay");
 
            var w = $("#divTimelineProgress").css("width");
            $("#sm2-progress-track").css("width", w);           
@@ -3876,7 +3890,7 @@
 
            // Init event while playing
            timer_globalplay = setInterval(whilePlayingGlobalplay, 1000);
-       }
+           }
 
        var timer = 0;
        function whilePlayingGlobalplay() {
@@ -3889,44 +3903,91 @@
            var progress_percentage = GLOBALPLAY_seconds_current * 100 / GLOBALPLAY_seconds_total;
            var left_final_percentage = progress_percentage + '%';
 
-           console.log("GLOBALPLAY_seconds_current: " + GLOBALPLAY_seconds_current);
-           console.log("progress_percentage: " + progress_percentage);
+           //console.log("GLOBALPLAY_seconds_current: " + GLOBALPLAY_seconds_current);
+           //console.log("progress_percentage: " + progress_percentage);
 
            $("#sm2-progress-ball_TIMELINE").css("left", left_final_percentage);
 
-           // RELATIVE TIMER MODE
+           // Search elements in current playtime
+           var elementsCandidate = getElementInMemoryByCurrentPlayingTime();
+           if (elementsCandidate != null && elementsCandidate.length > 0) {
 
-           /*
-           timer++;
-           var left_final_int = Math.min(progressMaxLeft, Math.max(0, (progressMaxLeft * (timer / 500))));
-           if (left_final_int == 100) {
-               abortGlobalplay();
+               $("#lblGlobalplay_element_count").text(elementsCandidate.length);
+
+               console.log(" getElementInMemoryByCurrentPlayingTime() ");
+
+               var ids = "";
+
+               for (var i = 0; i < elementsCandidate.length; i++) {
+                   var el = elementsCandidate[i];
+                   if (el != null) {
+                       //el[1] = true;
+                       
+                       ids = ids + el[0].tapeID + "(" + el[0].tapeType + "), ";
+
+                        var current_duration = GLOBALPLAY_seconds_current;
+                        var timeCurrent = moment(_TL_STARTDATE, "DD-MM-YYYY HH:mm:ss");
+                        timeCurrent.add(current_duration, "seconds");
+
+                        var element_end = moment(el[0].timestamp, "dd-MM-yyyy HH:mm:ss");
+                        element_end.add(el[0].duration, "seconds");
+
+                        console.log(" --------- " + el[0].tapeID);
+                        console.log("el start - " + el[0].timestamp);
+                        console.log("CURRENT - " + timeCurrent.toDate());
+                        console.log("el end - " + element_end.toDate());
+
+                   }
+               } // for
+
+               $("#lblGlobalplay_element_ids").text(ids);
+
+
            }
-           var left_final_percentage = left_final_int + '%';
-           
-           // ******* Update current timer regarding Pointer position *******
 
-           //var left_final_percentage = left_final_percentage;
-           var left_final_int = parseFloat(left_final_percentage);
-           var progress_seg = left_final_int * GLOBALPLAY_seconds_total / 100;
-
-           console.log("left_final_percentage: " + left_final_percentage);
-           console.log("left_final_int: " + left_final_int);
-           console.log("progress_seg: " + progress_seg);
-
-           // Get duration format: HH:mm:ss
-           var total_sec_format = getFormatDuration(progress_seg);
-
-           $('#lblGlobalplay_timer_current').text(total_sec_format);
-
-           */
-       }
+        }
 
        function abortGlobalplay() {
            clearInterval(timer_globalplay);
+           $('#lblGlobalplay_timer_current').timer('pause');
        }
 
+
+       function globalplay_searchElements() {
+
+
+
+       }
+
+
+       function getElementInMemoryByCurrentPlayingTime() {
+           if (stack_elements != null && stack_elements.length > 0) {
+
+               var current_duration = GLOBALPLAY_seconds_current;
+               var timeCurrent = moment(_TL_STARTDATE, "DD-MM-YYYY HH:mm:ss");
+               timeCurrent.add(current_duration, "seconds");
+
+               var array = stack_elements.filter(function (el) {
+                   var element_start = null;
+                   var element_end = null;
+                   if (el != null && el[0] != null && el[0].timestamp != null && el[0].duration != null) {
+
+                       element_start = moment(el[0].timestamp, "DD-MM-YYYY HH:mm:ss");
+                       element_end = moment(el[0].timestamp, "DD-MM-YYYY HH:mm:ss");
+                       element_end.add(el[0].duration, "seconds");
+                   }
+
+                   return element_start != null && element_end != null /* && el[1] === false */ &&
+                       element_start.toDate() <= timeCurrent.toDate() &&
+                       timeCurrent.toDate() <= element_end.toDate();
+               });
+               return array;
+           }
+       }
+
+
        /******** END: Media Player 2.0: Nuevo Requerimiento: Play global ********/
+
 
 
    </script>
@@ -4359,7 +4420,6 @@ div.disabled,button.disabled,a.disabled {
                 <div class="col-md-9" style="width: 79%;">    
                     <div class="row">
 
-                        <!-- <div id="Div1" class="img-rounded playerBox" style="min-height:400px; margin-left: 90px; border: solid 0.17em; background: linear-gradient(to bottom, #9EA7B1, #9EA7B1); position:relative;" runat="server"> -->
                         <div id="playerBox" class="img-rounded playerBox" style="min-height:440px; margin-left: 20px; border: solid 0.17em; background: linear-gradient(to bottom, #9EA7B1, #9EA7B1); position:relative;" runat="server">
 
                                 <div id="divPlayer_VIDEO" style="display:none;" class='photobox'> <!-- Contiene el Applet -->
@@ -4698,10 +4758,12 @@ div.disabled,button.disabled,a.disabled {
             <div id="divTimeline" class="div-panel2 col-md-12 col-xs-12 img-rounded" style="height:100%; z-index:0;left: 0; border-radius: 13px; width: 101%; margin-left: -13px;">
                <h1 style="margin-top: 5px;">
 
-                    <label id="lblGlobalplay_timer_current" class="label" style="font-size:100%; color:black;">00:00:00</label> / <label id="lblGlobalplay_timer_total" class="label" style="font-size:100%; color:black;">00:00:00</label>
+                    <label id="lblGlobalplay_timer_current" class="label" style="font-size:100%; color:black;">00:00:00</label>/<label id="lblGlobalplay_timer_total" class="label" style="font-size:100%; color:black;">00:00:00</label>
                    
-
                    <span class="special-title label label-primary" style="font-weight: normal;">Timeline</span>
+
+                    Cantidad: <label id="lblGlobalplay_element_count" class="label" style="font-size:100%; color:black;">0</label>: IDs: <label id="lblGlobalplay_element_ids" class="label" style="font-size:100%; color:black;">0</label>
+
                </h1>
 
                 <div class="row" style="display:inline">
